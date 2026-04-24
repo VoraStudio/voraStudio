@@ -29,7 +29,8 @@ li {
 body {
   font-family: var(--font-main);
   --bg-opacity: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, var(--bg-opacity)), rgba(255, 255, 255, var(--bg-opacity))), url("../img/fons.webp");
+  background-image:
+    linear-gradient(rgba(255, 255, 255, var(--bg-opacity)), rgba(255, 255, 255, var(--bg-opacity))), url("../img/fons.webp");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -43,7 +44,8 @@ body {
 body.page-projectes,
 body.page-aurex {
   --bg-opacity: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, var(--bg-opacity)), rgba(255, 255, 255, var(--bg-opacity))), url("../img/fons.webp");
+  background-image:
+    linear-gradient(rgba(255, 255, 255, var(--bg-opacity)), rgba(255, 255, 255, var(--bg-opacity))), url("../img/fons.webp");
   background-attachment: fixed;
   background-size: cover;
   transition: color 0.5s ease;
@@ -605,7 +607,7 @@ body.menu-open .close-label {
   justify-content: center;
   z-index: 10;
   /* border: solid red 1px; */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .hero-line-p {
   display: flex;
@@ -634,6 +636,7 @@ body.menu-open .close-label {
 .line-2 {
   justify-content: space-between;
   /* border: solid red 1px; */
+  /* border: solid red 2px; */
 }
 /* ESTUDI */
 .hero-text {
@@ -684,6 +687,7 @@ body.menu-open .close-label {
 .hero-text-block-2 {
   width: 100%;
   align-self: flex-start; /* Alineado a la izquierda bajo la imagen */
+  /* border: solid black 2px; */
 }
 
 .hero-logo-white {
@@ -691,9 +695,10 @@ body.menu-open .close-label {
   height: auto;
   margin-top: 10px;
   transition: opacity 0.3s ease;
-  z-index: 5;
+  z-index: 99999 !important;
   position: relative;
   align-self: center; /* Centrado respecto a CREATIU */
+  /* border: solid black 2px; */
 }
 
 .hero-pill-block {
@@ -721,7 +726,7 @@ body.menu-open .close-label {
   width: 100%;
   text-align: right; /* Alineado a la derecha con CREATIU */
   align-self: flex-end;
-  border: solid red 1px;
+  /* border: solid red 1px; */
   margin-left: 25px;
   margin-bottom: 1rem;
 }
@@ -762,6 +767,7 @@ body.menu-open .close-label {
     gap: 20px;
     width: 100%;
     text-align: center;
+    overflow: visible;
   }
 
   .hero-line-p {
