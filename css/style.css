@@ -767,7 +767,8 @@ body.menu-open .close-label {
     gap: 20px;
     width: 100%;
     text-align: center;
-    overflow: visible;
+    overflow: visible; 
+    /* Canviat */
   }
 
   .hero-line-p {
