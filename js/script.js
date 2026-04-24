@@ -778,8 +778,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const data = new FormData(contactForm);
 
     try {
-      // A producció canviar per: const response = await fetch("/contacte.php", {
-      const response = await fetch("/php/contacte.php", {
+      // Ruta relativa per evitar problemes si el projecte està en una subcarpeta
+      const response = await fetch("php/contacte.php", {
         method: "POST",
         body: data,
         headers: {

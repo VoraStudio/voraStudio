@@ -1,9 +1,11 @@
 <?php
-//Token de seguretat per evitar atacs CSRF ->
-session_start();
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+require_once __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Generem un token CSRF basat en el secret del .env i la data del dia
+// Això ens permet validar-lo sense dependre de la sessió de PHP
+$csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
 ?>
 
 <!doctype html>
@@ -857,7 +859,7 @@ if (empty($_SESSION['csrf_token'])) {
           <div class="contact__form-wrapper">
             <form class="modern-form" id="contact-form-element" action="javascript:void(0);" method="POST">
               <!-- SEGURETAT: Token CSRF per evitar atacs de falsificació -->
-              <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+              <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
               
               <!-- SEGURETAT: Honeypot per evitar spam de bots (invisible per humans) -->
               <div style="display:none;">
