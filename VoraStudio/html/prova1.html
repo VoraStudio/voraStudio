@@ -1,0 +1,322 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<style>
+  body {
+    --capa-blanca: 1;
+
+    background-image:
+      linear-gradient(rgba(255, 255, 255, var(--capa-blanca, 1)), rgba(255, 255, 255, var(--capa-blanca, 1))),
+      url("https://www.vorastudio.cat/wp-content/uploads/2026/01/fons.webp") !important;
+
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-color: white !important;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+  .video-main {
+    width: 50% !important;
+    height: auto;
+  }
+</style>
+
+<div class="box-reveal">
+  <div class="box box-1">
+    <video class="video-main" autoplay muted playsinline>
+      <source src="https://www.vorastudio.cat/wp-content/uploads/2026/03/logo-vora-1.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="box box-2"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
+
+<script>
+  //1.- Animació secció: PACKS [Cambi de fons]
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+      let esMobil = window.innerWidth <= 900 ? "top 110%" : "bottom bottom";
+      const bodyTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#fonsAnimat",
+          endTrigger: "#testi",
+          start: esMobil,
+          end: "bottom top",
+          scrub: 1,
+          markers: false,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      bodyTl
+        .to("body", { "--capa-blanca": 0, ease: "none" })
+        .to("body", { "--capa-blanca": 0, duration: 2 })
+        .to("body", { "--capa-blanca": 1, duration: 2, ease: "none" });
+
+      ScrollTrigger.refresh();
+
+      //Animació Imatges ->
+      const numImatges = 7;
+      let caixa = document.querySelector(".box.box-2");
+
+      for (let i = 1; i <= numImatges; i++) {
+        let boxImatge = document.createElement("div");
+        caixa.appendChild(boxImatge);
+        boxImatge.classList.add(`zoom-container`, `pos-${i}`);
+
+        let pos = i % 2 !== 0;
+        let randomX = pos ? 1 : 75;
+        let randomY = pos ? gsap.utils.random(0, 20) : gsap.utils.random(0, 20);
+
+        boxImatge.style.position = "absolute";
+        boxImatge.style.left = `${randomX}%`;
+        boxImatge.style.top = `${randomY}%`;
+        boxImatge.style.width = "30vw";
+        boxImatge.style.zIndex = numImatges - i;
+        boxImatge.setAttribute("data-speed", 1);
+
+        let imatge = document.createElement("img");
+        imatge.src = `https://www.vorastudio.cat/wp-content/uploads/2026/01/0${i}-scaled.webp`;
+        imatge.title = `Projecte ${i}`;
+        imatge.classList.add("img-zoom");
+        boxImatge.appendChild(imatge);
+      }
+
+      // 3. TÍTULO INTERNO
+      let titol = document.createElement("span");
+      caixa.appendChild(titol);
+      titol.classList.add("titol-anima");
+
+      titol.innerHTML = `
+    <div class="titol-estudi">Estudi de comunicació i branding</div>
+    A <span>vora</span> del que <br>
+    <span>importa <img class="logo-inline" src="https://www.vorastudio.cat/wp-content/uploads/2026/01/logo.png"/></span>
+    `;
+
+      // 4. TIMELINE PRINCIPAL (SCENE)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".my-scroll-scene",
+          start: "top top",
+          end: "bottom top", // Velocitat de scroll
+          scrub: 1, // lligat al moviment del mouse
+          pin: true, // Lligat al moviment del mouse
+          pinSpacing: true,
+          fastScrollEnd: true, // <--- AÑADIR: Evita que el final parpadee
+          preventOverlaps: true,
+        },
+      });
+
+      // Animació títol principal
+      tl.to(".video-main", { duration: 2 });
+      tl.to(".video-main", { y: "-50vh", opacity: 0, duration: 2 })
+        .to(".box-2", { opacity: 1, duration: 1 }, ">")
+        .to(
+          "#portada",
+          {
+            opacity: 1,
+            duration: 1,
+            ease: "none",
+          },
+          "<",
+        )
+        .add("inicioZoom", "<");
+
+      // Animación de las imágenes en profundidad (Z-axis)
+      const imatges = gsap.utils.toArray(".zoom-container");
+      imatges.forEach((container, i) => {
+        const speed = parseFloat(container.getAttribute("data-speed")) || 1;
+
+        tl.fromTo(
+          container,
+          { z: -1000 },
+          {
+            z: 500,
+            duration: 5 / speed,
+            ease: "none",
+            keyframes: {
+              "0%": { opacity: 0, filter: "blur(20px)" },
+              "50%": { opacity: 1, filter: "blur(0px)" },
+              "65%": { opacity: 1, filter: "blur(0px)" },
+              "85%": { opacity: 0, filter: "blur(60px)" },
+              "100%": { opacity: 0, display: "none" },
+            },
+          },
+          i === 0 ? "<" : "<1",
+        );
+      });
+
+      tl.fromTo(".titol-anima", { opacity: 0 }, { opacity: 1, duration: 3, immediateRender: false }, "-=2.5");
+      tl.to(".titol-anima", { y: "-50vh", opacity: 0, duration: 2 });
+    }
+  });
+</script>
+
+<!-- COMERCIAL ROSS -->
+<!-- Comercial Ros - Contenidor Elegant de Productes -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+
+<div class="cr-elegant-container">
+  <div class="cr-gallery-grid">
+    <!-- Producte 1: Aurex -->
+    <div class="cr-card" style="background-image: url(&quot;https://www.vorastudio.cat/wp-content/uploads/2026/01/Aurex-scaled.webp&quot;)">
+      <div class="cr-overlay">
+        <div class="cr-content">
+          <h3 class="cr-title">Aurex</h3>
+          <p class="cr-description">Mobiliari d'autor que combina ergonomia i disseny d'avantguarda per a espais únics.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producte 2: Wiar -->
+    <div class="cr-card" style="background-image: url(&quot;https://www.vorastudio.cat/wp-content/uploads/2026/01/Wiar-scaled.webp&quot;)">
+      <div class="cr-overlay">
+        <div class="cr-content">
+          <h3 class="cr-title">Wiar</h3>
+          <p class="cr-description">Solucions funcionals amb una estètica minimalista que potencia la productivitat.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producte 3: Captura -->
+    <div
+      class="cr-card"
+      style="
+        background-image: url(&quot;https://www.vorastudio.cat/wp-content/uploads/2026/01/Captura-de-pantalla-2026-01-15-a-les-10.02.55.png&quot;);
+      "
+    >
+      <div class="cr-overlay">
+        <div class="cr-content">
+          <h3 class="cr-title" style="padding-bottom: 15px">Arquitectura Interior</h3>
+          <p class="cr-description">Projectes integrals on la llum i els materials creen ambients harmònics.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producte 4: 03 -->
+    <div class="cr-card" style="background-image: url(&quot;https://www.vorastudio.cat/wp-content/uploads/2026/01/03-scaled.webp&quot;)">
+      <div class="cr-overlay">
+        <div class="cr-content">
+          <h3 class="cr-title" style="padding-bottom: 15px">Excel·lència Operativa</h3>
+          <p class="cr-description">Cura pels detalls i acabats de qualitat superior per a resultats impecables.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cr-elegant-container {
+    width: 100%;
+    padding: 20px 0;
+    font-family: "Faktum", sans-serif;
+    overflow: hidden;
+  }
+
+  .cr-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .cr-card {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .cr-card:hover {
+    transform: translateY(-12px);
+  }
+
+  .cr-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.85) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 25px;
+    transition: background 0.4s ease;
+  }
+
+  .cr-card:hover .cr-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 20%, rgba(0, 0, 0, 0.9) 100%);
+  }
+
+  .cr-content {
+    transform: translateY(65px);
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    width: 100%;
+  }
+
+  .cr-card:hover .cr-content {
+    transform: translateY(0);
+  }
+
+  .cr-title {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 500 !important;
+    opacity: 1 !important;
+  }
+
+  .cr-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.2;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.1s;
+    font-weight: 400;
+  }
+
+  .cr-card:hover .cr-description {
+    opacity: 1;
+  }
+
+  /* Ajustos per a mòbils */
+  @media (max-width: 768px) {
+    .cr-gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .cr-card {
+      height: 350px;
+      padding: 20px;
+    }
+    .cr-content {
+      transform: translateY(0);
+    }
+    .cr-description {
+      opacity: 1;
+    }
+    .cr-overlay {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 100%);
+    }
+  }
+</style>
+
+<!--  -->
