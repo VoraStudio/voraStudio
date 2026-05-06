@@ -80,8 +80,8 @@ if (empty($_SESSION['csrf_token'])) {
           <li class="has-dropdown">
             <a href="#projects-grid">Projectes</a>
             <ul class="dropdown-menu">
-              <li><a href="html/cross.php">Comercial Ross</a></li>
-              <li><a href="html/aurex.php">Aurex Immobles</a></li>
+              <li><a href="projectes/comercialRos">Comercial Ross</a></li>
+              <li><a href="projectes/aurex">Aurex Immobles</a></li>
               <!-- <li><a href="html/guaravan.php">Guaravan</a></li>
               <li><a href="html/cfood.php">C-Food</a></li>
               <li><a href="html/innovafp.php">InnovaFP</a></li>
@@ -127,8 +127,8 @@ if (empty($_SESSION['csrf_token'])) {
           <li class="has-submenu">
             <a href="javascript:void(0)" class="parent-link">Projectes</a>
              <ul class="dropdown-menu">
-              <li><a href="html/cross.php">Comercial Ross</a></li>
-              <li><a href="html/aurex.php">Aurex Immobles</a></li>
+              <li><a href="projectes/comercialRoss">Comercial Ross</a></li>
+              <li><a href="projectes/aurex">Aurex Immobles</a></li>
               <!-- <li><a href="html/guaravan.php">Guaravan</a></li>
               <li><a href="html/cfood.php">C-Food</a></li>
               <li><a href="html/innovafp.php">InnovaFP</a></li>
@@ -143,7 +143,7 @@ if (empty($_SESSION['csrf_token'])) {
             </ul>
           </li>
           <li><a href="#pricing">Packs</a></li>
-          <li><a href="#contacte">Contacte</a></li>
+          <li><a href="#contact">Contacte</a></li>
         </ul>
       </div>
     </div>
@@ -257,7 +257,7 @@ if (empty($_SESSION['csrf_token'])) {
               <div class="service-card__body">
                 <div class="card-image-wrapper">
                   <img
-                    src="https://images.unsplash.com/photo-1572044162444-ad60f128bde2?w=800&q=80"
+                    src="img/aurexFinestra.webp"
                     alt="Branding Vora Studio"
                     class="card-inner-img"
                   />
@@ -595,7 +595,7 @@ if (empty($_SESSION['csrf_token'])) {
                 Pensat per a marques que fan els primers passos o necessiten ordre. Definim l’estratègia inicial, el relat de marca i una identitat
                 visual bàsica.
               </p>
-              <a href="#contacte" class="pricing-card__cta" aria-label="Més informació sobre el Pack Essencial">Més informació</a>
+              <a href="#contact" class="pricing-card__cta" aria-label="Més informació sobre el Pack Essencial">Més informació</a>
             </div>
 
             <div class="pricing-card__features">
@@ -657,7 +657,7 @@ if (empty($_SESSION['csrf_token'])) {
               <p class="pricing-card__description">
                 Per a marques que volen créixer i professionalitzar la seva comunicació. Desenvolupem una estratègia completa i identitat sòlida.
               </p>
-              <a href="#contacte" class="pricing-card__cta" aria-label="Més informació sobre el Pack Integral">Més informació</a>
+              <a href="#contact" class="pricing-card__cta" aria-label="Més informació sobre el Pack Integral">Més informació</a>
             </div>
 
             <div class="pricing-card__features">
@@ -720,7 +720,7 @@ if (empty($_SESSION['csrf_token'])) {
               <p class="pricing-card__description">
                 La solució més completa per a marques que volen liderar. Estratègia avançada, branding potent i comunicació multicanal.
               </p>
-              <a href="#contacte" class="pricing-card__cta" aria-label="Més informació sobre el Pack Master">Més informació</a>
+              <a href="#contact" class="pricing-card__cta" aria-label="Més informació sobre el Pack Master">Més informació</a>
             </div>
 
             <div class="pricing-card__features">
@@ -825,13 +825,9 @@ if (empty($_SESSION['csrf_token'])) {
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  fill="currentColor"
                 >
-                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-7.6 8.38 8.38 0 0 1 3.8.9L21 4.5z" />
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.396.015 12.03a11.782 11.782 0 001.592 5.955L0 24l6.111-1.605a11.765 11.765 0 005.935 1.636h.005c6.634 0 12.032-5.396 12.035-12.03a11.81 11.81 0 00-3.486-8.484z" />
                 </svg>
               </a>
               <a href="https://www.instagram.com/vorastudio_/" class="social-icon" aria-label="Instagram" target="_blank">
@@ -940,6 +936,14 @@ if (empty($_SESSION['csrf_token'])) {
         </div>
       </footer>
     </main>
+
+    <!-- Botó flotant de WhatsApp -->
+    <a href="https://wa.me/722812139" class="whatsapp-float" target="_blank" aria-label="Contacta'ns per WhatsApp">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.396.015 12.03a11.782 11.782 0 001.592 5.955L0 24l6.111-1.605a11.765 11.765 0 005.935 1.636h.005c6.634 0 12.032-5.396 12.035-12.03a11.81 11.81 0 00-3.486-8.484z" />
+      </svg>
+    </a>
+
     <script src="js/script.js"></script>
   </body>
 </html>
