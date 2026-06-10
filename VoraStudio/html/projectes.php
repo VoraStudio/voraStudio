@@ -248,6 +248,14 @@
     });
     </script>
 
-    <script src="../js/script.js"></script>
+    <script>
+    // Lenis smooth scroll (solo lo necesario para ScrollTrigger)
+    if (typeof Lenis !== 'undefined') {
+      var lenis = new Lenis();
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+    </script>
   </body>
 </html>
