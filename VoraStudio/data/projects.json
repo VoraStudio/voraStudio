@@ -1,0 +1,190 @@
+[
+  {
+    "id": "aurex",
+    "name": "Aurex Immobles",
+    "hero": {
+      "logo": "../img/Aurex 1x.png",
+      "logoAlt": "Aurex Logo",
+      "website": "https://aureximmobles.com",
+      "websiteLabel": "aureximmobles.com",
+      "description": "Una experiència de marca autèntica, diferenciadora i propera. Aurex és una empresa del sector immobiliari que volia actualitzar la seva imatge.",
+      "tags": ["Branding", "Estratègia de marca", "Campanya RRSS", "Motion graphics"]
+    },
+    "strategy": [
+      {
+        "label": "EL REPTE",
+        "text": "Crear una marca forta en un sector molt competitiu on la confiança i la proximitat són clau."
+      },
+      {
+        "label": "L'ESTRATÈGIA",
+        "text": "Posicionar Aurex com la immobiliària de proximitat que entén les necessitats reals del client."
+      },
+      {
+        "label": "EL RESULTAT",
+        "text": "Una imatge renovada, moderna i propera que transmet professionalitat i confiança des del primer moment."
+      }
+    ],
+    "gallery": [
+      "../img/aurexFinestra.webp",
+      "../img/Aurex-scaled.webp",
+      "../img/aurex-web2.webp",
+      "../img/Mockup 2.webp",
+      "../img/Targeta_.webp",
+      "../img/aurexFinestra.webp"
+    ]
+  },
+  {
+    "id": "comercial-ross",
+    "name": "Comercial Ross",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Comercial Ross",
+      "website": "#",
+      "websiteLabel": "comercial-ross.com",
+      "description": "Estratègia de marca per Comercial Ross.",
+      "tags": ["Branding", "Web"]
+    },
+    "strategy": [],
+    "gallery": ["../img/para3.webp"]
+  },
+  {
+    "id": "cfood",
+    "name": "C-Food",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "C-Food",
+      "website": "#",
+      "websiteLabel": "c-food.cat",
+      "description": "Estratègia de marca per C-Food.",
+      "tags": ["Estratègia", "Branding"]
+    },
+    "strategy": [],
+    "gallery": ["../img/cfood.webp"]
+  },
+  {
+    "id": "guardavan",
+    "name": "Guardavan",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Guardavan",
+      "website": "#",
+      "websiteLabel": "guardavan.com",
+      "description": "Estratègia de marca per Guardavan.",
+      "tags": ["Web", "Branding"]
+    },
+    "strategy": [],
+    "gallery": ["../img/Targetes.webp"]
+  },
+  {
+    "id": "wiar",
+    "name": "Wiar",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Wiar",
+      "website": "#",
+      "websiteLabel": "wiar.cat",
+      "description": "Estratègia de marca per Wiar.",
+      "tags": ["Branding"]
+    },
+    "strategy": [],
+    "gallery": ["../img/wiar.webp"]
+  },
+  {
+    "id": "raymel",
+    "name": "Raymel",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Raymel",
+      "website": "#",
+      "websiteLabel": "raymel.cat",
+      "description": "Projecte creatiu per Raymel.",
+      "tags": ["Branding", "Social Media"]
+    },
+    "strategy": [],
+    "gallery": ["../img/band.webp"]
+  },
+  {
+    "id": "spica",
+    "name": "Spica",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Spica",
+      "website": "#",
+      "websiteLabel": "spica.cat",
+      "description": "Projecte web per Spica.",
+      "tags": ["Web Design"]
+    },
+    "strategy": [],
+    "gallery": ["../img/web.webp"]
+  },
+  {
+    "id": "palmitohouse",
+    "name": "Palmito House",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Palmito House",
+      "website": "#",
+      "websiteLabel": "palmitohouse.com",
+      "description": "Projecte web per Palmito House.",
+      "tags": ["Web", "Branding"]
+    },
+    "strategy": [],
+    "gallery": ["../img/Mockup 2.webp"]
+  },
+  {
+    "id": "innovafp",
+    "name": "InnovaFP",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "InnovaFP",
+      "website": "#",
+      "websiteLabel": "innovafp.cat",
+      "description": "Portal per InnovaFP.",
+      "tags": ["Web Development"]
+    },
+    "strategy": [],
+    "gallery": ["../img/Mokcup.webp"]
+  },
+  {
+    "id": "novagal",
+    "name": "Novagal",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Novagal",
+      "website": "#",
+      "websiteLabel": "novagal.com",
+      "description": "Projecte creatiu per Novagal.",
+      "tags": ["Branding", "Print"]
+    },
+    "strategy": [],
+    "gallery": ["../img/Targeta_.webp"]
+  },
+  {
+    "id": "dtast",
+    "name": "D-Tast",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "D-Tast",
+      "website": "#",
+      "websiteLabel": "dtast.cat",
+      "description": "Projecte de packaging i disseny per D-Tast.",
+      "tags": ["Packaging", "Design"]
+    },
+    "strategy": [],
+    "gallery": ["../img/band.webp"]
+  },
+  {
+    "id": "vitoria-teylor",
+    "name": "Vitoria Teylor",
+    "hero": {
+      "logo": "../img/logo_blanc.png",
+      "logoAlt": "Vitoria Teylor",
+      "website": "#",
+      "websiteLabel": "vitoriateylor.com",
+      "description": "Identitat visual per Vitoria Teylor.",
+      "tags": ["Branding", "Strategy"]
+    },
+    "strategy": [],
+    "gallery": ["../img/web.webp"]
+  }
+]

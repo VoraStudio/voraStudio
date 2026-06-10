@@ -51,6 +51,7 @@ body.page-aurex {
 }
 
 .main-projectes,
+.main-projecte,
 .main-content {
   background-color: #fff;
   position: relative;
@@ -1620,6 +1621,28 @@ body.menu-open .close-label {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
+.project-gallery__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.project-gallery__item {
+  flex: 1 1 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-height: 900px;
+}
+
+@media (min-width: 1024px) {
+  .project-gallery__item {
+    flex: 1 1 calc(33.333% - 14px); /* Tres columnas en escritorio; si sobran ítems, se reparten el 100% */
+  }
+}
+
 .divergent-grid__item img {
   width: 100%;
   height: 100%;
@@ -2920,6 +2943,209 @@ select.form-field__input option {
   transform: scale(1.05);
 }
 
+/* --- PROJECT DETAIL TEMPLATE (dynamic from JSON) --- */
+.project-hero {
+  min-height: 50vh;
+  padding: 180px 5vw 7rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+}
+
+.project-hero__container {
+  max-width: 1400px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .project-hero__container {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: flex-start;
+  }
+}
+
+.project-hero__left {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-hero__left img {
+  width: 100%;
+  height: auto;
+}
+
+.project-hero__left a {
+  padding-left: 2.5rem;
+}
+
+.project-hero__right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 2rem;
+  padding-top: 4rem;
+}
+
+@media (max-width: 800px) {
+  .project-hero__right {
+    padding-top: 0;
+  }
+}
+
+.project-hero__link {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  color: #999;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  display: inline-block;
+}
+
+.project-hero__link span {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.project-hero__description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+  max-width: 600px;
+  margin: 0;
+}
+
+.project-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.project-hero__tag {
+  padding: 10px 25px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+/* --- PROJECT STRATEGY --- */
+.project-strategy {
+  padding: 20px 5vw 100px;
+  background-color: #fff;
+}
+
+.project-strategy__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding-left: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .project-strategy__container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+  }
+}
+
+.project-strategy__block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.project-strategy__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-strategy__dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.project-strategy__label {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.project-strategy__text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #999;
+}
+
+/* --- PROJECT GALLERY (auto-fill grid) --- */
+.project-gallery {
+  padding: 0 5vw 120px;
+  background-color: #fff;
+  width: 100vw;
+}
+
+.project-gallery__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.project-gallery__item {
+  flex: 1 1 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-height: 900px;
+}
+
+@media (min-width: 1024px) {
+  .project-gallery__item {
+    flex: 1 1 calc(33.333% - 14px); /* Tres columnas en escritorio; si sobran ítems, se reparten el 100% */
+  }
+  .project-gallery__item:first-child {
+    flex: 1 1 100%;
+  }
+}
+
+.project-gallery__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-gallery__item:hover .project-gallery__img {
+  transform: scale(1.05);
+}
+
 /* --- NUEVA GALERÍA DE PROYECTOS (FLEX ACCORDION) --- */
 .portfolio-grid {
   display: flex;
@@ -3157,7 +3383,7 @@ body.page-projectes-gallery {
 /* --- TRACK HORIZONTAL --- */
 .projectes-scroll {
   width: 100%;
-  height: 100vh;
+  height: 78vh; /* Aumentado para dar espacio a la j descendente sin subir el texto */
   overflow: hidden;
   position: relative;
   display: flex;
@@ -3219,6 +3445,10 @@ body.page-projectes-gallery {
   flex-direction: column;
   flex-shrink: 0;
   justify-content: flex-start;
+}
+
+.projectes-scroll__track .projecte-card-wrap:first-child {
+  margin-left: 5vw; /* Para que quede alineado con el resto del contenido y el header */
 }
 
 .projecte-card__info {
@@ -3368,27 +3598,316 @@ body.page-projectes-gallery {
     width: clamp(180px, 48vw, 270px);
   }
   .projecte-card {
-    height: 35vh;
+    height: 55vh;
   }
 
   .projecte-card:hover {
-    height: 55vh;
+    height: 65vh;
   }
 
   .projecte-card__overlay {
     opacity: 1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 5vw;
+    font-family: var(--font-main);
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    color: rgba(26, 26, 26, 0.5);
+    text-align: center;
+    z-index: 50;
+    background: #fff;
+    pointer-events: none;
+  }
+
+  .projectes-scroll__track {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    padding: 0 5vw;
+    gap: 24px;
+    align-items: flex-start;
+    position: relative;
+    z-index: 15;
+  }
+
+  .projectes-scroll__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* --- CARD WRAPPER (info above + card below) --- */
+  .projecte-card-wrap {
+    flex: 0 0 auto;
+    width: clamp(200px, 25vw, 340px);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: flex-start;
+  }
+
+  .projecte-card__info {
+    padding-bottom: 16px;
+  }
+
+  .projecte-card__title {
+    font-family: var(--font-main);
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .projecte-card__subtitle {
+    font-family: var(--font-main);
+    font-size: clamp(1.1rem, 1.9vw, 1.4rem);
+    font-weight: 400;
+    color: rgba(26, 26, 26, 0.65);
+    line-height: 1.4;
+  }
+
+  /* --- CARDS --- */
+  .projecte-card {
+    width: 100%;
+    height: 40vh;
+    position: relative;
+    cursor: pointer;
+    scroll-snap-align: start;
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    will-change: height;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .projecte-card:hover {
+    height: 60vh;
+    position: relative;
+    z-index: 15;
+  }
+
+  .projecte-card__label {
+    font-family: var(--font-main);
+    font-size: clamp(0.85rem, 1.4vw, 1.125rem);
+    font-weight: 600;
+    color: #1a1a1a;
+    padding: 16px 16px 8px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #fff;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .projecte-card img {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: block;
+  }
+
+  .projecte-card:hover img {
+    transform: scale(1.04);
+    position: relative;
+    z-index: 15;
+  }
+
+  .projecte-card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+    color: #fff;
+    transform: translateY(10px);
+    opacity: 0.8;
+    transition: all 0.4s ease;
+  }
+
+  .projecte-card:hover .projecte-card__overlay {
     transform: translateY(0);
-    padding: 20px;
+    opacity: 1;
+  }
+
+  .projecte-card__number {
+    font-family: var(--font-main);
+    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+    color: var(--color-accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .projecte-card__text {
+    font-family: var(--font-main);
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+  }
+
+  /* --- RESPONSIVE --- */
+  /* --- TÍTULO GRANDE FINAL --- */
+  .projectes-footer-title {
+    padding: 3vh 5vw 15vh;
+    text-align: left;
+  }
+
+  .projectes-footer-title__text {
+    font-family: var(--font-title);
+    font-size: clamp(4rem, 18vw, 14rem);
+    font-weight: 400;
+    color: #000;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+
+  @media (max-width: 768px) {
+    .projectes-footer-title {
+      padding: 6vh 5vw 8vh;
+    }
+
+    .projectes-footer-title__text {
+      font-size: clamp(2.5rem, 15vw, 5rem);
+    }
+
+    .projectes-scroll {
+      height: 80vh;
+    }
+
+    .projectes-scroll__track {
+      padding: 0 7vw;
+      gap: 16px;
+      margin-left: 5vw;
+    }
+
+    .projecte-card-wrap {
+      width: clamp(180px, 48vw, 270px);
+    }
+    .projecte-card {
+      height: 55vh;
+    }
+
+    .projecte-card:hover {
+      height: 65vh;
+    }
+
+    .projecte-card__overlay {
+      opacity: 1;
+      transform: translateY(0);
+      padding: 20px;
+    }
+
+    .projectes-scroll__title {
+      top: 66vh; /* Cambiá este porcentaje para moverlo verticalmente */
+      font-size: clamp(3.5rem, 15vw, 6rem); /* Si querés cambiarle el tamaño */
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projectes-scroll__track {
+      padding: 0 8vw;
+      gap: 32px;
+    }
+
+    .projecte-card-wrap {
+      width: clamp(260px, 22vw, 380px);
+    }
   }
 }
 
-@media (min-width: 1024px) {
-  .projectes-scroll__track {
-    padding: 0 8vw;
-    gap: 32px;
+/* ==========================================================================
+   ESTILS PER LA PLANTILLA DINÀMICA DE PROJECTE (FONDO BLANCO, FORMULARIO NARANJA)
+   ========================================================================== */
+
+/* Fondo blanco general para el body en la plantilla de proyectos */
+body.page-projecte {
+  background-color: #fff !important;
+  background-image: none !important;
+  color: #1a1a1a !important;
+}
+
+/* El header sub-header es blanco */
+body.page-projecte #sub-header {
+  background-color: #fff !important;
+}
+
+/* El main es blanco */
+body.page-projecte .main-projecte {
+  background-color: #fff !important;
+}
+
+/* La galería principal de fotos del proyecto no tiene padding-bottom en esta plantilla */
+body.page-projecte .project-gallery {
+  padding-bottom: 0 !important;
+}
+
+/* La galería horizontal de proyectos tiene texto oscuro para encajar con el fondo blanco y margen de 5vh */
+body.page-projecte .projectes-scroll {
+  background-color: #fff !important;
+  margin-top: 5vh !important;
+}
+
+body.page-projecte .projectes-scroll__title,
+body.page-projecte .projectes-footer-title__text {
+  color: #1a1a1a !important;
+}
+
+/* Solo la sección del formulario de contacto mantiene el fondo naranja (fons.webp) */
+body.page-projecte #contact.contact-section {
+  background-image: url("../img/fons.webp") !important;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: transparent !important;
+  color: #fff !important;
+  padding-top: 5vh !important;
+  margin-top: 10vh !important;
+}
+
+/* Forzar que el texto y las etiquetas dentro del formulario en esta página sean blancas */
+body.page-projecte #contact.contact-section .contact__info-title,
+body.page-projecte #contact.contact-section .contact__info-subtitle,
+body.page-projecte #contact.contact-section .contact__info-email,
+body.page-projecte #contact.contact-section .form-field__label,
+body.page-projecte #contact.contact-section .form-checkbox__label,
+body.page-projecte #contact.contact-section .form-checkbox__label a {
+  color: #fff !important;
+}
+
+/* El pie de página vuelve a tener fondo blanco */
+body.page-projecte #main-footer.footer-section {
+  background-color: #fff !important;
+  color: #1a1a1a !important;
+  padding: 40px 0;
+  border-top: 1px solid #eaeaea;
+}
+
+/* ==========================================================================
+   REGLES ESPECÍFIQUES PER A MÒBIL EN DETALL DE PROJECTE
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Reducir el espaciado superior/inferior y quitar el min-height del Hero en móvil */
+  body.page-projecte .project-hero {
+    min-height: auto !important;
+    padding-top: 100px !important;
+    padding-bottom: 2rem !important;
   }
 
-  .projecte-card-wrap {
-    width: clamp(260px, 22vw, 380px);
+  /* Reducir el espaciado de Briefing en móvil */
+  body.page-projecte .project-strategy {
+    padding-top: 10px !important;
+    padding-bottom: 40px !important;
   }
 }

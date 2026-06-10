@@ -97,6 +97,8 @@ window.addEventListener("DOMContentLoaded", () => {
       tlPortfolio.to(".portfolio-hero__title", { autoAlpha: 1, y: 0, delay: 0.5 }).to(".portfolio-hero__subtitle", { autoAlpha: 1, y: 0 }, "-=0.8");
     }
 
+
+
     //#region HERO
 
     //#region HEADER
@@ -730,6 +732,8 @@ window.addEventListener("DOMContentLoaded", () => {
        FIN SECCIÓN: ANIMACIONES
        ========================================================================== */
   }
+
+
 
   /* ==========================================================================
      SECCIÓ: ENVÍO DE FORMULARIO (Segur i amb GSAP)
