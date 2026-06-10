@@ -204,11 +204,11 @@
         </div>
 
         <h2 class="projectes-scroll__title">Projectes</h2>
-
-        <footer class="projectes-scroll__footer">
-          <p>&copy; 2026 VoraStudio | Creativitat sense l&iacute;mits.</p>
-        </footer>
       </section>
+
+      <footer class="gallery-footer">
+        <p>&copy; 2026 VoraStudio | Creativitat sense l&iacute;mits.</p>
+      </footer>
 
     </main>
 
