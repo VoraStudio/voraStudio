@@ -41,6 +41,7 @@ body {
 
 /* --- ESTILOS PARA PÁGINAS INTERNAS (Sincronizado con Index) --- */
 body.page-projectes,
+body.page-serveis,
 body.page-aurex {
   --bg-opacity: 0;
   background-image: linear-gradient(rgba(255, 255, 255, var(--bg-opacity)), rgba(255, 255, 255, var(--bg-opacity))), url("../img/fons.webp");
@@ -3127,5 +3128,266 @@ select.form-field__input option {
   .whatsapp-float svg {
     width: 28px;
     height: 28px;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTE: Galería Horizontal (Projectes)
+   ========================================================================== */
+
+body.page-projectes-gallery {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-image: none !important;
+  color: #1a1a1a;
+}
+
+.page-projectes-gallery .main-projectes {
+  background-color: #fff;
+  width: 100%;
+  min-height: 100vh;
+  margin-top: 65px;
+}
+
+.projectes-scroll-spacer {
+  width: 100%;
+  pointer-events: none;
+}
+
+/* --- TRACK HORIZONTAL --- */
+.projectes-scroll {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectes-scroll__title {
+  position: absolute;
+  top: 45vh;
+  left: 0;
+  right: 0;
+  font-family: var(--font-title);
+  font-size: clamp(4rem, 18vw, 14rem);
+  font-weight: 400;
+  color: #000;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  padding: 0 5vw;
+  margin-top: 5vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.projectes-scroll__footer {
+  position: absolute;
+  bottom: 3rem;
+  left: 0;
+  right: 0;
+  padding: 1rem 5vw;
+  font-family: var(--font-main);
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  color: rgba(26, 26, 26, 0.5);
+  text-align: center;
+  z-index: 20;
+  background: #fff;
+}
+
+.projectes-scroll__track {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  padding: 0 5vw;
+  gap: 24px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 15;
+}
+
+.projectes-scroll__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- CARD WRAPPER (info above + card below) --- */
+.projecte-card-wrap {
+  flex: 0 0 auto;
+  width: clamp(200px, 25vw, 340px);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: flex-start;
+}
+
+.projecte-card__info {
+  padding-bottom: 16px;
+}
+
+.projecte-card__title {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.projecte-card__subtitle {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.9vw, 1.4rem);
+  font-weight: 400;
+  color: rgba(26, 26, 26, 0.65);
+  line-height: 1.4;
+}
+
+/* --- CARDS --- */
+.projecte-card {
+  width: 100%;
+  height: 40vh;
+  position: relative;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  will-change: height;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.projecte-card:hover {
+  height: 60vh;
+  position: relative;
+  z-index: 15;
+}
+
+.projecte-card__label {
+  font-family: var(--font-main);
+  font-size: clamp(0.85rem, 1.4vw, 1.125rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 16px 16px 8px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #fff;
+  border-radius: 24px 24px 0 0;
+}
+
+.projecte-card img {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: block;
+}
+
+.projecte-card:hover img {
+  transform: scale(1.04);
+  position: relative;
+  z-index: 15;
+}
+
+.projecte-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  color: #fff;
+  transform: translateY(10px);
+  opacity: 0.8;
+  transition: all 0.4s ease;
+}
+
+.projecte-card:hover .projecte-card__overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.projecte-card__number {
+  font-family: var(--font-main);
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  color: var(--color-accent);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.projecte-card__text {
+  font-family: var(--font-main);
+  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+
+/* --- RESPONSIVE --- */
+/* --- TÍTULO GRANDE FINAL --- */
+.projectes-footer-title {
+  padding: 3vh 5vw 15vh;
+  text-align: left;
+}
+
+.projectes-footer-title__text {
+  font-family: var(--font-title);
+  font-size: clamp(4rem, 18vw, 14rem);
+  font-weight: 400;
+  color: #000;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 768px) {
+  .projectes-footer-title {
+    padding: 6vh 5vw 8vh;
+  }
+
+  .projectes-footer-title__text {
+    font-size: clamp(2.5rem, 15vw, 5rem);
+  }
+
+  .projectes-scroll {
+    height: 100vh;
+  }
+
+  .projectes-scroll__track {
+    padding: 0 4vw;
+    gap: 16px;
+  }
+
+  .projecte-card-wrap {
+    width: clamp(180px, 48vw, 270px);
+  }
+  .projecte-card {
+    height: 35vh;
+  }
+
+  .projecte-card:hover {
+    height: 55vh;
+  }
+
+  .projecte-card__overlay {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projectes-scroll__track {
+    padding: 0 8vw;
+    gap: 32px;
+  }
+
+  .projecte-card-wrap {
+    width: clamp(260px, 22vw, 380px);
   }
 }

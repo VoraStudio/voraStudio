@@ -1,9 +1,3 @@
-<?php
-session_start();
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-?>
 <!doctype html>
 <html lang="ca">
   <head>
@@ -27,7 +21,7 @@ if (empty($_SESSION['csrf_token'])) {
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></script>
   </head>
-  <body class="page-projectes">
+  <body class="page-projectes page-projectes-gallery">
 
     <!-- ----- HEADER ----- -->
      <header id="sub-header">
@@ -38,16 +32,14 @@ if (empty($_SESSION['csrf_token'])) {
           </a>
         </div>
 
-        <!-- Botón de Menú (Responsive) -->
         <button class="menu-toggle" id="menu-toggle" aria-label="Obrir menú de navegació">
           <span class="line line-1"></span>
           <span class="line line-2"></span>
         </button>
 
-        <!-- Menú Desktop (Horizontal) -->
         <ul class="nav-links desktop-only">
           <li class="has-dropdown">
-            <a href="../index.php#services">Serveis</a>
+            <a href="serveis.php">Serveis</a>
             <ul class="dropdown-menu">
               <li><a href="../index.php#branding">Estratègia i Branding</a></li>
               <li><a href="../index.php#web">Projectes Web</a></li>
@@ -57,303 +49,204 @@ if (empty($_SESSION['csrf_token'])) {
             </ul>
           </li>
           <li class="has-dropdown">
-            <a href="#projects-grid">Projectes</a>
-            <ul class="dropdown-menu">
-              <li><a href="cross.php">Comercial Ross</a></li>
-              <li><a href="aurex.php">Aurex Immobles</a></li>
-              <!-- <li><a href="guaravan.php">Guaravan</a></li>
-              <li><a href="cfood.php">C-Food</a></li>
-              <li><a href="innovafp.php">InnovaFP</a></li>
-              <li><a href="spica.php">Spica</a></li>
-              <li><a href="raymel.php">Raymel</a></li>
-              <li><a href="dtast.php">D-Tast</a></li>
-              <li><a href="wiar.php">Wiar</a></li>
-              <li><a href="novagal.php">Novagal</a></li>
-              <li><a href="palmitohouse.php">Palmito House</a></li>
-              <li><a href="vitoriaTeylor.php">Vitoria Teylor</a></li>
-              <li><a href="espaiGras.php">Espai Gastronòmic Quim Casellas</a></li> -->
-            </ul>
+            <a href="#">Projectes</a>
           </li>
           <li class="has-dropdown">
             <a href="../index.php#pricing">Packs</a>
           </li>
         </ul>
 
-        <!-- Botón Contacto Derecho -->
         <div class="header__cta desktop-only">
           <a href="../index.php#contact" class="btn-cta" style="border: 2px solid #f5a04e !important;">Contacte</a>
         </div>
       </nav>
     </header>
 
-    <!-- Menú Overlay (Panel Lateral) -->
+    <!-- Menú Overlay -->
     <div class="menu-overlay" id="menu-overlay">
-      <!-- Indicador de cierre -->
       <span class="close-label">CLOSE</span>
-
       <div class="overlay-content">
         <ul class="overlay-links">
-          <li class="has-submenu">
-            <a href="javascript:void(0)" class="parent-link">Serveis</a>
-            <ul class="submenu">
-              <li><a href="../index.php#branding">Estratègia i Branding</a></li>
-              <li><a href="../index.php#web">Projectes Web</a></li>
-              <li><a href="../index.php#social">Social Media</a></li>
-              <li><a href="../index.php#disseny">Disseny Gràfic</a></li>
-              <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>            
-            </ul>
-          </li>
-          <li class="has-submenu">
-            <a href="javascript:void(0)" class="parent-link">Projectes</a>
-             <ul class="dropdown-menu">
-              <li><a href="cross.php">Comercial Ross</a></li>
-              <li><a href="aurex.php">Aurex Immobles</a></li>
-              <!-- <li><a href="guaravan.php">Guaravan</a></li>
-              <li><a href="cfood.php">C-Food</a></li>
-              <li><a href="innovafp.php">InnovaFP</a></li>
-              <li><a href="spica.php">Spica</a></li>
-              <li><a href="raymel.php">Raymel</a></li>
-              <li><a href="dtast.php">D-Tast</a></li>
-              <li><a href="wiar.php">Wiar</a></li>
-              <li><a href="novagal.php">Novagal</a></li>
-              <li><a href="palmitohouse.php">Palmito House</a></li>
-              <li><a href="vitoriaTeylor.php">Vitoria Teylor</a></li>
-              <li><a href="espaiGras.php">Espai Gastronòmic Quim Casellas</a></li> -->
-            </ul>
-          </li>
+          <li><a href="serveis.php">Serveis</a></li>
+          <li><a href="#">Projectes</a></li>
           <li><a href="../index.php#pricing">Packs</a></li>
           <li><a href="../index.php#contacte">Contacte</a></li>
         </ul>
       </div>
     </div>
 
-    <!-- ----- MAIN CONTENT (WHITE BLOCK) ----- -->
+    <!-- ----- MAIN: GALERIA HORITZONTAL ----- -->
     <main class="main-projectes">
-      
-      <!-- HERO -->
-      <!-- <section class="portfolio-hero">
-        <div class="portfolio-hero__container">
-          <h1 class="portfolio-hero__title">
-            Projectes amb <br />
-            <span class="accent">ànima creativa.</span>
-          </h1>
-          <p class="portfolio-hero__subtitle">
-            Una selecció de treballs on la passió pel detall i la innovació digital es troben.
-          </p>
+
+      <section class="projectes-scroll" id="projectes-scroll">
+        <div class="projectes-scroll__track" id="projectes-track">
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Aurex Immobles</h3>
+              <p class="projecte-card__subtitle">Pack Master</p>
+            </div>
+            <a href="../projectes/projecte.php?project=aurex" class="projecte-card" data-project="aurex">
+              <img src="../img/aurexFinestra.webp" alt="Aurex Immobles" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Comercial Ross</h3>
+              <p class="projecte-card__subtitle">Pack Essencial</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="comercial-ross">
+              <img src="../img/para3.webp" alt="Comercial Ross" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">C-Food</h3>
+              <p class="projecte-card__subtitle">Pack Integral</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="cfood">
+              <img src="../img/cfood.webp" alt="C-Food" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Guardavan</h3>
+              <p class="projecte-card__subtitle">Pack Integral</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="guardavan">
+              <img src="../img/Targetes.webp" alt="Guardavan" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Wiar</h3>
+              <p class="projecte-card__subtitle">Pack Essencial</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="wiar">
+              <img src="../img/wiar.webp" alt="Wiar" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Raymel</h3>
+              <p class="projecte-card__subtitle">Pack Integral</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="raymel">
+              <img src="../img/band.webp" alt="Raymel" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Spica</h3>
+              <p class="projecte-card__subtitle">Pack Essencial</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="spica">
+              <img src="../img/web.webp" alt="Spica" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Palmito House</h3>
+              <p class="projecte-card__subtitle">Pack Essencial</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="palmitohouse">
+              <img src="../img/Mockup 2.webp" alt="Palmito House" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">InnovaFP</h3>
+              <p class="projecte-card__subtitle">Pack Essencial</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="innovafp">
+              <img src="../img/Mokcup.webp" alt="InnovaFP" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Novagal</h3>
+              <p class="projecte-card__subtitle">Pack Master</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="novagal">
+              <img src="../img/Targeta_.webp" alt="Novagal" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">D-Tast</h3>
+              <p class="projecte-card__subtitle">Pack Essencial</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="dtast">
+              <img src="../img/band.webp" alt="D-Tast" loading="lazy" />
+            </a>
+          </div>
+
+          <div class="projecte-card-wrap">
+            <div class="projecte-card__info">
+              <h3 class="projecte-card__title">Vitoria Teylor</h3>
+              <p class="projecte-card__subtitle">Pack Master</p>
+            </div>
+            <a href="#" class="projecte-card" data-project="vitoria-teylor">
+              <img src="../img/web.webp" alt="Vitoria Teylor" loading="lazy" />
+            </a>
+          </div>
+
         </div>
-      </section> -->
 
-      <!-- GALLERY (ACCORDION) -->
-      <section class="portfolio-grid">
-        <!-- Project 01 -->
-       <article class="portfolio-card">
-          <img src="../img/para3.webp" alt="Divergent" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">01</span>
-             <h2 class="portfolio-card__title">Comercial Ross</h2>
-             <p class="portfolio-card__text">Identitat visual disruptiva i disseny editorial.</p>
-             <a href="cross.php" class="portfolio-card__btn">Veure més</a>
-          </div>
-        </article>
+        <h2 class="projectes-scroll__title">Projectes</h2>
 
-        <!-- Project 02 -->
-      <article class="portfolio-card">
-          <img src="../img/aurexFinestra.webp" alt="Aurex" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-            <span class="portfolio-card__number">02</span>
-            <h2 class="portfolio-card__title">Aurex Immobles</h2>
-            <p class="portfolio-card__text">Branding, Web Design & Social Media.</p>
-            <a href="aurex.php" class="portfolio-card__btn">Veure més</a>
-          </div>
-      </article>
-        
-
-        <!-- Project 03 -->
-        <article class="portfolio-card">
-          <img src="../img/cfood.webp" alt="Graphic" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">03</span>
-             <h2 class="portfolio-card__title">C-Food</h2>
-             <p class="portfolio-card__text">Packaging corporatiu premium.</p>
-             <a href="#" class="portfolio-card__btn">Pròximament</a>
-          </div>
-        </article>
-
-        <!-- Project 04 -->
-        <article class="portfolio-card">
-          <img src="../img/Targetes.webp" alt="Web" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">04</span>
-             <h2 class="portfolio-card__title">Guardavan</h2>
-             <p class="portfolio-card__text">Disseny i optimització web d'alt rendiment.</p>
-             <a href="#" class="portfolio-card__btn">Pròximament</a>
-          </div>
-        </article>
+        <footer class="projectes-scroll__footer">
+          <p>&copy; 2026 VoraStudio | Creativitat sense l&iacute;mits.</p>
+        </footer>
       </section>
 
-      <section class="portfolio-grid2">
-        <!-- Project 01 -->
-       <article class="portfolio-card">
-          <img src="../img/para3.webp" alt="Divergent" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">01</span>
-             <h2 class="portfolio-card__title">Comercial Ross</h2>
-             <p class="portfolio-card__text">Identitat visual disruptiva i disseny editorial.</p>
-             <a href="cross.php" class="portfolio-card__btn">Veure més</a>
-          </div>
-        </article>
+    </main>
 
-        <!-- Project 02 -->
-      <article class="portfolio-card">
-          <img src="../img/aurexFinestra.webp" alt="Aurex" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-            <span class="portfolio-card__number">02</span>
-            <h2 class="portfolio-card__title">Aurex Immobles</h2>
-            <p class="portfolio-card__text">Branding, Web Design & Social Media.</p>
-            <a href="aurex.php" class="portfolio-card__btn">Veure més</a>
-          </div>
-      </article>
-        <!-- Project 03 -->
-        <article class="portfolio-card">
-          <img src="../img/cfood.webp" alt="Graphic" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">03</span>
-             <h2 class="portfolio-card__title">C-Food</h2>
-             <p class="portfolio-card__text">Packaging corporatiu premium.</p>
-             <a href="#" class="portfolio-card__btn">Pròximament</a>
-          </div>
-        </article>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var track = document.querySelector('.projectes-scroll__track');
+      var section = document.querySelector('.projectes-scroll');
+      if (!track || !section) return;
 
-        <!-- Project 04 -->
-        <article class="portfolio-card">
-          <img src="../img/Targetes.webp" alt="Web" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">04</span>
-             <h2 class="portfolio-card__title">Guardavan</h2>
-             <p class="portfolio-card__text">Disseny i optimització web d'alt rendiment.</p>
-             <a href="#" class="portfolio-card__btn">Pròximament</a>
-          </div>
-        </article>
-      </section>
+      // Clonar 3 veces para que el recorrido sea muy largo
+      var cards = track.querySelectorAll('.projecte-card-wrap');
+      for (var i = 0; i < 3; i++) {
+        cards.forEach(function (card) {
+          track.appendChild(card.cloneNode(true));
+        });
+      }
 
-      <!-- Toast Container -->
-      <div id="toast-container" class="toast-hidden"></div>
+      ScrollTrigger.refresh();
 
-    </main> <!-- CIERRE DEL BLOQUE BLANCO -->
-
-    <!-- ----- CONTACT SECTION (REVEAL ON IMAGE) ----- -->
-    <section id="contact" class="contact-section">
-      <div class="contact__container">
-        <div class="contact__info">
-          <h2 class="contact__info-title">Fem un cafe?</h2>
-          <p class="contact__info-subtitle">Estas a la vora d'alguna cosa gran!</p>
-          <a href="mailto:hola@vorastudio.cat" class="contact__info-email">hola@vorastudio.cat</a>
-
-          <div class="contact__socials">
-            <a href="https://www.linkedin.com/company/vorastudio" class="social-icon" aria-label="LinkedIn" target="_blank">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                <rect x="2" y="9" width="4" height="12" />
-                <circle cx="4" cy="4" r="2" />
-              </svg>
-            </a>
-            <a href="https://wa.me/722812139" class="social-icon" aria-label="WhatsApp" target="_blank">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.396.015 12.03a11.782 11.782 0 001.592 5.955L0 24l6.111-1.605a11.765 11.765 0 005.935 1.636h.005c6.634 0 12.032-5.396 12.035-12.03a11.81 11.81 0 00-3.486-8.484z" />
-              </svg>
-            </a>
-            <a href="https://www.instagram.com/vorastudio_/" class="social-icon" aria-label="Instagram" target="_blank">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="contact__form-wrapper">
-          <form class="modern-form" id="contact-form-element" action="javascript:void(0);" method="POST">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-            <div style="display:none;">
-              <label>No omplis aquest camp si ets humà:</label>
-              <input type="text" name="honeypot" value="">
-            </div>
-            <input type="hidden" name="recaptcha_response" id="recaptcha_response">
-
-            <div class="form-row">
-              <div class="form-field">
-                <input type="text" id="name" name="name" class="form-field__input" placeholder=" " required />
-                <label for="name" class="form-field__label">Nom i cognoms</label>
-                <div class="form-field__bar"></div>
-              </div>
-              <div class="form-field">
-                <input type="email" id="email" name="email" class="form-field__input" placeholder=" " required />
-                <label for="email" class="form-field__label">Correu electrònic</label>
-                <div class="form-field__bar"></div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-field">
-                <select id="topic" name="topic" class="form-field__input" required>
-                  <option value="" disabled selected hidden></option>
-                  <option value="Essencial">Pack Essencial</option>
-                  <option value="Integral">Pack Integral</option>
-                  <option value="Master">Pack Master</option>
-                  <option value="Altre">Un altre motiu / Consulta general</option>
-                </select>
-                <label for="topic" class="form-field__label">Tema de interes</label>
-                <div class="form-field__bar"></div>
-              </div>
-              <div class="form-field">
-                <input type="text" id="subject" name="subject" class="form-field__input" placeholder=" " required />
-                <label for="subject" class="form-field__label">Assumpte</label>
-                <div class="form-field__bar"></div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <textarea id="message" name="message" class="form-field__input form-field__textarea" placeholder=" " required></textarea>
-              <label for="message" class="form-field__label">Com et podem ayudar?</label>
-              <div class="form-field__bar"></div>
-            </div>
-
-            <div class="form-checkbox">
-              <input type="checkbox" id="privacy" name="privacy" class="form-checkbox__input" required />
-              <label for="privacy" class="form-checkbox__label"> He llegit i accepto les <a href="#">condicions d'ús</a>. </label>
-            </div>
-
-            <div id="form-status" class="form-status"></div>
-
-            <button type="submit" class="form-btn" aria-label="Enviar formulari de contacte">
-              <span class="form-btn__text">Enviar missatge</span>
-              <div class="form-btn__icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- ----- FOOTER ----- -->
-    <footer id="main-footer" class="footer-section">
-      <div class="content-wrapper">
-        <p>© 2026 VoraStudio | Creativitat sense límits.</p>
-      </div>
-    </footer>
-
-    <!-- Scripts -->
-
-    <!-- Botó flotant de WhatsApp -->
-    <a href="https://wa.me/722812139" class="whatsapp-float" target="_blank" aria-label="Contacta'ns per WhatsApp">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.396.015 12.03a11.782 11.782 0 001.592 5.955L0 24l6.111-1.605a11.765 11.765 0 005.935 1.636h.005c6.634 0 12.032-5.396 12.035-12.03a11.81 11.81 0 00-3.486-8.484z" />
-      </svg>
-    </a>
+      gsap.to(track, {
+        x: function () {
+          return -(track.scrollWidth - section.offsetWidth);
+        },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          pinSpacing: true,
+          start: 'top 17%',
+          end: function () {
+            return '+=' + (track.scrollWidth - section.offsetWidth);
+          },
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+    });
+    </script>
 
     <script src="../js/script.js"></script>
   </body>
