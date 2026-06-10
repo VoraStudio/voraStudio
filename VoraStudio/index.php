@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+//require_once __DIR__ . '/vendor/autoload.php';
+//$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+//$dotenv->load();
 
 // Generem un token CSRF basat en el secret del .env i la data del dia
 // Això ens permet validar-lo sense dependre de la sessió de PHP
-$csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
+//$csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
 ?>
 
 <!doctype html>
@@ -123,7 +123,7 @@ $csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
         <!-- Menú Desktop (Horizontal) -->
         <ul class="nav-links desktop-only">
           <li class="has-dropdown">
-            <a href="#services">Serveis</a>
+            <a href="html/serveis.php">Serveis</a>
             <ul class="dropdown-menu">
               <li><a href="#branding">Estratègia i Branding</a></li>
               <li><a href="#web">Projectes Web</a></li>
@@ -133,22 +133,7 @@ $csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
             </ul>
           </li>
           <li class="has-dropdown">
-            <a href="#projects-grid">Projectes</a>
-            <ul class="dropdown-menu">
-              <li><a href="projectes/comercialRos">Comercial Ross</a></li>
-              <li><a href="projectes/aurex">Aurex Immobles</a></li>
-              <!-- <li><a href="html/guaravan.php">Guaravan</a></li>
-              <li><a href="html/cfood.php">C-Food</a></li>
-              <li><a href="html/innovafp.php">InnovaFP</a></li>
-              <li><a href="html/spica.php">Spica</a></li>
-              <li><a href="html/raymel.php">Raymel</a></li>
-              <li><a href="html/dtast.php">D-Tast</a></li>
-              <li><a href="html/wiar.php">Wiar</a></li>
-              <li><a href="html/novagal.php">Novagal</a></li>
-              <li><a href="html/palmitohouse.php">Palmito House</a></li>
-              <li><a href="html/vitoriaTeylor.php">Vitoria Teylor</a></li>
-              <li><a href="html/espaiGras.php">Espai Gastronòmic Quim Casellas</a></li> -->
-            </ul>
+            <a href="html/projectes.html">Projectes</a>
           </li>
           <li class="has-dropdown">
             <a href="#pricing">Packs</a>
@@ -169,34 +154,8 @@ $csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
 
       <div class="overlay-content">
         <ul class="overlay-links">
-          <li class="has-submenu">
-            <a href="javascript:void(0)" class="parent-link">Serveis</a>
-            <ul class="submenu">
-              <li><a href="#branding">Estratègia i Branding</a></li>
-              <li><a href="#web">Projectes Web</a></li>
-              <li><a href="#social">Social Media</a></li>
-              <li><a href="#disseny">Disseny Gràfic</a></li>
-              <li><a href="#marqueting">Màrqueting Digital</a></li>            
-            </ul>
-          </li>
-          <li class="has-submenu">
-            <a href="javascript:void(0)" class="parent-link">Projectes</a>
-             <ul class="dropdown-menu">
-              <li><a href="projectes/comercialRoss">Comercial Ross</a></li>
-              <li><a href="projectes/aurex">Aurex Immobles</a></li>
-              <!-- <li><a href="html/guaravan.php">Guaravan</a></li>
-              <li><a href="html/cfood.php">C-Food</a></li>
-              <li><a href="html/innovafp.php">InnovaFP</a></li>
-              <li><a href="html/spica.php">Spica</a></li>
-              <li><a href="html/raymel.php">Raymel</a></li>
-              <li><a href="html/dtast.php">D-Tast</a></li>
-              <li><a href="html/wiar.php">Wiar</a></li>
-              <li><a href="html/novagal.php">Novagal</a></li>
-              <li><a href="html/palmitohouse.php">Palmito House</a></li>
-              <li><a href="html/vitoriaTeylor.php">Vitoria Teylor</a></li>
-              <li><a href="html/espaiGras.php">Espai Gastronòmic Quim Casellas</a></li> -->
-            </ul>
-          </li>
+          <li><a href="html/serveis.php">Serveis</a></li>
+          <li><a href="html/projectes.html">Projectes</a></li>
           <li><a href="#pricing">Packs</a></li>
           <li><a href="#contact">Contacte</a></li>
         </ul>

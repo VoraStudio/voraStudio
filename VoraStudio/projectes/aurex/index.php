@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
       rel="stylesheet"
     />
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
 
     <!-- GSAP Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -37,8 +37,8 @@ if (empty($_SESSION['csrf_token'])) {
      <header id="sub-header">
       <nav class="nav-container">
         <div class="logo">
-          <a href="../index.php">
-            <img src="../img/voraL.png" alt="VoraStudio Logo" class="logo-img logo-img--default" />
+          <a href="../../index.php">
+            <img src="../../img/voraL.png" alt="VoraStudio Logo" class="logo-img logo-img--default" />
           </a>
         </div>
 
@@ -51,41 +51,26 @@ if (empty($_SESSION['csrf_token'])) {
         <!-- Menú Desktop (Horizontal) -->
         <ul class="nav-links desktop-only">
           <li class="has-dropdown">
-            <a href="../index.php#services">Serveis</a>
+            <a href="../../html/serveis.php">Serveis</a>
             <ul class="dropdown-menu">
-              <li><a href="../index.php#branding">Estratègia i Branding</a></li>
-              <li><a href="../index.php#web">Projectes Web</a></li>
-              <li><a href="../index.php#social">Social Media</a></li>
-              <li><a href="../index.php#disseny">Disseny Gràfic</a></li>
-              <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>             
+              <li><a href="../../index.php#branding">Estratègia i Branding</a></li>
+              <li><a href="../../index.php#web">Projectes Web</a></li>
+              <li><a href="../../index.php#social">Social Media</a></li>
+              <li><a href="../../index.php#disseny">Disseny Gràfic</a></li>
+              <li><a href="../../index.php#marqueting">Màrqueting Digital</a></li>             
             </ul>
           </li>
           <li class="has-dropdown">
-            <a href="#projects-grid">Projectes</a>
-            <ul class="dropdown-menu">
-              <li><a href="cross.php">Comercial Ross</a></li>
-              <li><a href="aurex.php">Aurex Immobles</a></li>
-              <!-- <li><a href="guaravan.php">Guaravan</a></li>
-              <li><a href="cfood.php">C-Food</a></li>
-              <li><a href="innovafp.php">InnovaFP</a></li>
-              <li><a href="spica.php">Spica</a></li>
-              <li><a href="raymel.php">Raymel</a></li>
-              <li><a href="dtast.php">D-Tast</a></li>
-              <li><a href="wiar.php">Wiar</a></li>
-              <li><a href="novagal.php">Novagal</a></li>
-              <li><a href="palmitohouse.php">Palmito House</a></li>
-              <li><a href="vitoriaTeylor.php">Vitoria Teylor</a></li>
-              <li><a href="espaiGras.php">Espai Gastronòmic Quim Casellas</a></li> -->
-            </ul>
+            <a href="../../html/projectes.html">Projectes</a>
           </li>
           <li class="has-dropdown">
-            <a href="../index.php#pricing">Packs</a>
+            <a href="../../index.php#pricing">Packs</a>
           </li>
         </ul>
 
         <!-- Botón Contacto Derecho -->
         <div class="header__cta desktop-only">
-          <a href="../index.php#contact" class="btn-cta" style="border: 2px solid #f5a04e !important;">Contacte</a>
+          <a href="../../index.php#contact" class="btn-cta" style="border: 2px solid #f5a04e !important;">Contacte</a>
         </div>
       </nav>
     </header>
@@ -97,36 +82,10 @@ if (empty($_SESSION['csrf_token'])) {
 
       <div class="overlay-content">
         <ul class="overlay-links">
-          <li class="has-submenu">
-            <a href="javascript:void(0)" class="parent-link">Serveis</a>
-            <ul class="submenu">
-              <li><a href="../index.php#branding">Estratègia i Branding</a></li>
-              <li><a href="../index.php#web">Projectes Web</a></li>
-              <li><a href="../index.php#social">Social Media</a></li>
-              <li><a href="../index.php#disseny">Disseny Gràfic</a></li>
-              <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>            
-            </ul>
-          </li>
-          <li class="has-submenu">
-            <a href="javascript:void(0)" class="parent-link">Projectes</a>
-             <ul class="dropdown-menu">
-              <li><a href="cross.php">Comercial Ross</a></li>
-              <li><a href="aurex.php">Aurex Immobles</a></li>
-              <!-- <li><a href="guaravan.php">Guaravan</a></li>
-              <li><a href="cfood.php">C-Food</a></li>
-              <li><a href="innovafp.php">InnovaFP</a></li>
-              <li><a href="spica.php">Spica</a></li>
-              <li><a href="raymel.php">Raymel</a></li>
-              <li><a href="dtast.php">D-Tast</a></li>
-              <li><a href="wiar.php">Wiar</a></li>
-              <li><a href="novagal.php">Novagal</a></li>
-              <li><a href="palmitohouse.php">Palmito House</a></li>
-              <li><a href="vitoriaTeylor.php">Vitoria Teylor</a></li>
-              <li><a href="espaiGras.php">Espai Gastronòmic Quim Casellas</a></li> -->
-            </ul>
-          </li>
-          <li><a href="../index.php#pricing">Packs</a></li>
-          <li><a href="../index.php#contacte">Contacte</a></li>
+          <li><a href="../../html/serveis.php">Serveis</a></li>
+          <li><a href="../../html/projectes.html">Projectes</a></li>
+          <li><a href="../../index.php#pricing">Packs</a></li>
+          <li><a href="../../index.php#contact">Contacte</a></li>
         </ul>
       </div>
     </div>
@@ -137,7 +96,7 @@ if (empty($_SESSION['csrf_token'])) {
       <section id="aurex-hero" class="aurex-hero">
         <div class="aurex-hero__container">
           <div class="aurex-hero__left">
-            <img src="../img/Aurex 1x.png" alt="Aurex Inmobles" class="aurex-hero__logo" />
+            <img src="../../img/Aurex 1x.png" alt="Aurex Inmobles" class="aurex-hero__logo" />
             <a href="https://aureximmobles.com" target="_blank" class="aurex-hero__link">WEBISTE: <span>aureximmobles.com</span></a>
           </div>
 
@@ -198,22 +157,22 @@ if (empty($_SESSION['csrf_token'])) {
       <!-- SECCIÓN GALERÍA -->
       <section id="aurex-gallery-main" class="aurex-gallery">
         <div class="aurex-gallery__item">
-          <img src="../img/aurexFinestra.webp" alt="Aurex Branding Mockup" class="aurex-gallery__img" />
+          <img src="../../img/aurexFinestra.webp" alt="Aurex Branding Mockup" class="aurex-gallery__img" />
         </div>
 
         <!-- REJILLA DE 4 FOTOS (2x2) -->
         <div class="aurex-gallery__grid" id="aurex-gallery-grid">
           <div class="aurex-gallery__grid-item">
-            <img src="../img/Aurex-scaled.webp" alt="Showcase 1" class="aurex-gallery__grid-img" />
+            <img src="../../img/Aurex-scaled.webp" alt="Showcase 1" class="aurex-gallery__grid-img" />
           </div>
           <div class="aurex-gallery__grid-item">
-            <img src="../img/aurex-web2.webp" alt="Showcase 2" class="aurex-gallery__grid-img" />
+            <img src="../../img/aurex-web2.webp" alt="Showcase 2" class="aurex-gallery__grid-img" />
           </div>
           <div class="aurex-gallery__grid-item">
-            <img src="../img/Mockup 2.webp" alt="Showcase 3" class="aurex-gallery__grid-img" />
+            <img src="../../img/Mockup 2.webp" alt="Showcase 3" class="aurex-gallery__grid-img" />
           </div>
           <div class="aurex-gallery__grid-item">
-            <img src="../img/Targeta_.webp" alt="Showcase 4" class="aurex-gallery__grid-img" />
+            <img src="../../img/Targeta_.webp" alt="Showcase 4" class="aurex-gallery__grid-img" />
           </div>
         </div>
       </section>
@@ -255,7 +214,7 @@ if (empty($_SESSION['csrf_token'])) {
 
           <!-- Columna Derecha: Formulario -->
           <div class="contact__form-wrapper">
-            <form class="modern-form" id="contact-form-element" action="../contact.php" method="POST">
+            <form class="modern-form" id="contact-form-element" action="../../contacte.php" method="POST">
               <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
               <div style="display:none;">
                 <label>No omplis aquest camp si ets humà:</label>
@@ -336,6 +295,6 @@ if (empty($_SESSION['csrf_token'])) {
       </svg>
     </a>
 
-    <script src="../js/script.js"></script>
+    <script src="../../js/script.js"></script>
   </body>
 </html>
