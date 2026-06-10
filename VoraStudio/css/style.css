@@ -1612,6 +1612,7 @@ body.menu-open .close-label {
 }
 
 .divergent-grid__item {
+  display: block;
   width: clamp(280px, 30vw, 400px);
   height: clamp(300px, 40vh, 550px);
   border-radius: 20px;

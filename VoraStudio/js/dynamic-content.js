@@ -25,13 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
         ScrollTrigger.refresh();
       }, 300);
 
-      // Animar header y hero
-      gsap.set("#sub-header", { autoAlpha: 0, y: -50 });
+      // Animar hero
       gsap.set([".project-hero__left", ".project-hero__right"], { autoAlpha: 0, y: 50 });
       const tlHero = gsap.timeline({ defaults: { duration: 1, ease: "power3.out" } });
-      tlHero.to("#sub-header", { autoAlpha: 1, y: 0 })
-            .to(".project-hero__left", { autoAlpha: 1, y: 0 }, "-=0.6")
-            .to(".project-hero__right", { autoAlpha: 1, y: 0 }, "-=0.8");
+      tlHero.to(".project-hero__left", { autoAlpha: 1, y: 0 }).to(".project-hero__right", { autoAlpha: 1, y: 0 }, "-=0.8");
 
       // Animar strategy blocks
       gsap.set(".project-strategy__block", { autoAlpha: 0, y: 50 });
@@ -52,20 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         stagger: 0.35,
         ease: "power3.out",
         scrollTrigger: { trigger: "#project-gallery", start: "top 55%" },
-      });
-
-      // Animar las tarjetas de la galería horizontal al entrar en vista
-      gsap.set(".projectes-scroll .projecte-card-wrap", { autoAlpha: 0, y: 60 });
-      gsap.to(".projectes-scroll .projecte-card-wrap", {
-        autoAlpha: 1,
-        y: 0,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".projectes-scroll",
-          start: "top 85%",
-        },
       });
 
     } catch (err) {

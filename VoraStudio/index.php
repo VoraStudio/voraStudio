@@ -484,27 +484,27 @@
 
           <div class="divergent-grid__wrapper">
             <div class="divergent-grid__row divergent-grid__row--top">
-              <div class="divergent-grid__item"><img src="img/band.webp" alt="P1" /></div>
-              <div class="divergent-grid__item"><img src="img/cfood.webp" alt="P2" /></div>
-              <div class="divergent-grid__item"><img src="img/wiar.webp" alt="P3" /></div>
-              <div class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="P4" /></div>
-              <div class="divergent-grid__item"><img src="img/web.webp" alt="P5" /></div>
-              <div class="divergent-grid__item"><img src="img/Targeta_.webp" alt="P6" /></div>
+              <a href="projectes/projecte.php?project=raymel" class="divergent-grid__item"><img src="img/band.webp" alt="P1" /></a>
+              <a href="projectes/projecte.php?project=cfood" class="divergent-grid__item"><img src="img/cfood.webp" alt="P2" /></a>
+              <a href="projectes/projecte.php?project=wiar" class="divergent-grid__item"><img src="img/wiar.webp" alt="P3" /></a>
+              <a href="projectes/projecte.php?project=aurex" class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="P4" /></a>
+              <a href="projectes/projecte.php?project=spica" class="divergent-grid__item"><img src="img/web.webp" alt="P5" /></a>
+              <a href="projectes/projecte.php?project=novagal" class="divergent-grid__item"><img src="img/Targeta_.webp" alt="P6" /></a>
             </div>
 
             <div class="divergent-grid__row divergent-grid__row--bottom">
-              <div class="divergent-grid__item"><img src="img/cfood.webp" alt="P7" /></div>
-              <div class="divergent-grid__item"><img src="img/web.webp" alt="P8" /></div>
-              <div class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="P9" /></div>
-              <div class="divergent-grid__item">
+              <a href="projectes/projecte.php?project=cfood" class="divergent-grid__item"><img src="img/cfood.webp" alt="P7" /></a>
+              <a href="projectes/projecte.php?project=vitoria-teylor" class="divergent-grid__item"><img src="img/web.webp" alt="P8" /></a>
+              <a href="projectes/projecte.php?project=aurex" class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="P9" /></a>
+              <a href="projectes/projecte.php?project=novagal" class="divergent-grid__item">
                 <img src="img/Targeta_.webp" alt="P10" />
-              </div>
-              <div class="divergent-grid__item">
+              </a>
+              <a href="projectes/projecte.php?project=wiar" class="divergent-grid__item">
                 <img src="img/wiar.webp" alt="P11" />
-              </div>
-              <div class="divergent-grid__item">
+              </a>
+              <a href="projectes/projecte.php?project=dtast" class="divergent-grid__item">
                 <img src="img/band.webp" alt="P12" />
-              </div>
+              </a>
             </div>
 
             <div class="divergent-grid__badge">
