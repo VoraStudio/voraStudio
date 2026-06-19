@@ -1,3 +1,14 @@
+/* ══════════════════════════════════════════════════════════════
+   dynamic-content.js — VoraStudio
+   ══════════════════════════════════════════════════════════════
+   Carrega les dades del projecte des de VoraCMS.
+   Si el CMS no està disponible, fa fallback al JSON local.
+
+   CMS API: http://localhost:8000/api/projecte?client=default
+   ══════════════════════════════════════════════════════════════ */
+
+const CMS_API_BASE = 'http://localhost:8000';
+
 document.addEventListener('DOMContentLoaded', function () {
   const isProjectePage = document.body.classList.contains("page-projecte");
   if (!isProjectePage) return;
@@ -5,115 +16,186 @@ document.addEventListener('DOMContentLoaded', function () {
   loadProjectData();
 
   async function loadProjectData() {
-    const projectId = document.body.dataset.project;
-    if (!projectId) return;
+    const projectSlug = document.body.dataset.project;
+    if (!projectSlug) return;
 
+    /* ─── Intentar CMS primer ─── */
+    try {
+      const res = await fetch(`${CMS_API_BASE}/api/projecte?client=default&locale=ca`);
+      if (!res.ok) throw new Error(`CMS HTTP ${res.status}`);
+      const json = await res.json();
+      const projects = json.data;
+
+      /* Buscar per slug del títol (aurex → Aurex Immobles) */
+      const data = projects.find(p => slugify(p.titol) === projectSlug);
+      if (!data) throw new Error("Projecte no trobat al CMS");
+
+      renderProjectFromCMS(data);
+      return;
+    } catch (err) {
+      console.warn('CMS no disponible, usant dades locals:', err.message);
+    }
+
+    /* ─── Fallback al JSON local ─── */
     try {
       const res = await fetch(`../data/projects.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const projects = await res.json();
-      
-      const data = projects.find(p => p.id === projectId);
+      const data = projects.find(p => p.id === projectSlug);
       if (!data) throw new Error("Projecte no trobat");
 
-      buildProjectHero(data);
-      buildProjectStrategy(data);
-      buildProjectGallery(data);
-
-      // Refresh ScrollTrigger dels elements dinàmics inicials
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 300);
-
-      // Animar hero
-      gsap.set([".project-hero__left", ".project-hero__right"], { autoAlpha: 0, y: 50 });
-      const tlHero = gsap.timeline({ defaults: { duration: 1, ease: "power3.out" } });
-      tlHero.to(".project-hero__left", { autoAlpha: 1, y: 0 }).to(".project-hero__right", { autoAlpha: 1, y: 0 }, "-=0.8");
-
-      // Animar strategy blocks
-      gsap.set(".project-strategy__block", { autoAlpha: 0, y: 50 });
-      gsap.to(".project-strategy__block", {
-        autoAlpha: 1,
-        y: 0,
-        stagger: 0.4,
-        duration: 2,
-        ease: "power2.out",
-        scrollTrigger: { trigger: ".project-strategy", start: "top 80%" },
-      });
-
-      // Animar galeria items
-      gsap.from(".project-gallery__item", {
-        autoAlpha: 0,
-        y: 120,
-        duration: 1.5,
-        stagger: 0.35,
-        ease: "power3.out",
-        scrollTrigger: { trigger: "#project-gallery", start: "top 55%" },
-      });
-
+      renderProjectFromLocal(data);
     } catch (err) {
-      console.error("Error carregant dades del projecte:", err);
+      console.error('Error carregant dades del projecte:', err);
     }
   }
 
-  function buildProjectHero(data) {
+  /* ─── Helpers ─── */
+
+  function slugify(text) {
+    return text.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  function imgUrl(path) {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    return CMS_API_BASE + path;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+      Render des de CMS
+     ══════════════════════════════════════════════════════════════ */
+
+  function renderProjectFromCMS(data) {
+    document.title = `VoraStudio | ${data.titol}`;
+
+    const logo = data.logo_client?.[0]?.url ? imgUrl(data.logo_client[0].url) : '';
+    const tags = data.tags ? data.tags.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const website = data.website && data.website !== '#' ? data.website : '#';
+    const websiteLabel = data.website && data.website !== '#'
+      ? data.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '#';
+
+    buildProjectHero(logo, website, websiteLabel, data.descripcio || '', tags);
+    buildProjectStrategy(data.repte, data.estrategia, data.resultat);
+    buildProjectGallery(data.galeria || []);
+
+    animateSections();
+  }
+
+  function buildProjectHero(logo, website, websiteLabel, description, tags) {
     const section = document.getElementById("project-hero");
-    const hero = data.hero;
-    document.title = `VoraStudio | ${data.name}`;
     section.innerHTML = `
       <div class="project-hero__container">
         <div class="project-hero__left">
-          <img src="${hero.logo}" alt="${hero.logoAlt}" />
-          <a href="${hero.website}" target="_blank" class="project-hero__link">WEBSITE: <span>${hero.websiteLabel}</span></a>
+          ${logo ? `<img src="${logo}" alt="" />` : ''}
+          <a href="${website}" target="_blank" class="project-hero__link">WEBSITE: <span>${websiteLabel}</span></a>
         </div>
         <div class="project-hero__right">
-          <p class="project-hero__description">${hero.description}</p>
+          <p class="project-hero__description">${description}</p>
           <div class="project-hero__tags">
-            ${hero.tags.map((tag) => `<span class="project-hero__tag">${tag}</span>`).join("")}
+            ${tags.map(tag => `<span class="project-hero__tag">${tag}</span>`).join("")}
           </div>
         </div>
       </div>`;
   }
 
-  function buildProjectStrategy(data) {
+  function buildProjectStrategy(repte, estrategia, resultat) {
     const section = document.getElementById("project-strategy");
-    if (!data.strategy || !data.strategy.length) {
+    const blocks = [
+      { label: 'EL REPTE', text: repte },
+      { label: "L'ESTRATÈGIA", text: estrategia },
+      { label: 'EL RESULTAT', text: resultat },
+    ].filter(b => b.text);
+
+    if (!blocks.length) {
       section.style.display = "none";
       return;
     }
+
     section.innerHTML = `
       <div class="project-strategy__container">
-        ${data.strategy
-          .map(
-            (block) => `
+        ${blocks.map(b => `
           <div class="project-strategy__block">
             <div class="project-strategy__header">
               <span class="project-strategy__dot"></span>
-              <h2 class="project-strategy__label">${block.label}</h2>
+              <h2 class="project-strategy__label">${b.label}</h2>
             </div>
-            <p class="project-strategy__text">${block.text}</p>
+            <p class="project-strategy__text">${b.text}</p>
           </div>`
-          )
-          .join("")}
+        ).join("")}
       </div>`;
   }
 
-  function buildProjectGallery(data) {
+  function buildProjectGallery(galeria) {
     const section = document.getElementById("project-gallery");
-    if (!data.gallery || !data.gallery.length) {
+    if (!galeria.length) {
       section.style.display = "none";
       return;
     }
+
     section.innerHTML = `
       <div class="project-gallery__grid">
-        ${data.gallery
-          .map(
-            (src) => `
+        ${galeria.map(img => `
           <div class="project-gallery__item">
-            <img src="${src}" alt="" class="project-gallery__img" loading="lazy" />
+            <img src="${imgUrl(img.url)}" alt="" class="project-gallery__img" loading="lazy" />
           </div>`
-          )
-          .join("")}
+        ).join("")}
       </div>`;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+      Render des de JSON local (compatible ambrere)
+     ══════════════════════════════════════════════════════════════ */
+
+  function renderProjectFromLocal(data) {
+    document.title = `VoraStudio | ${data.name}`;
+    const hero = data.hero;
+
+    buildProjectHero(
+      hero.logo || '',
+      hero.website || '#',
+      hero.websiteLabel || '#',
+      hero.description || '',
+      hero.tags || []
+    );
+    buildProjectStrategy(
+      data.strategy?.find(s => s.label === 'EL REPTE')?.text,
+      data.strategy?.find(s => s.label === "L'ESTRATÈGIA")?.text,
+      data.strategy?.find(s => s.label === 'EL RESULTAT')?.text
+    );
+    buildProjectGallery(
+      (data.gallery || []).map(src => ({ url: src }))
+    );
+
+    animateSections();
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+      Animacions (GSAP)
+     ══════════════════════════════════════════════════════════════ */
+
+  function animateSections() {
+    setTimeout(() => {
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }, 300);
+
+    gsap.set(".project-hero__left, .project-hero__right", { autoAlpha: 0, y: 50 });
+    const tlHero = gsap.timeline({ defaults: { duration: 1, ease: "power3.out" } });
+    tlHero.to(".project-hero__left", { autoAlpha: 1, y: 0 })
+          .to(".project-hero__right", { autoAlpha: 1, y: 0 }, "-=0.8");
+
+    gsap.set(".project-strategy__block", { autoAlpha: 0, y: 50 });
+    gsap.to(".project-strategy__block", {
+      autoAlpha: 1, y: 0, stagger: 0.4, duration: 2, ease: "power2.out",
+      scrollTrigger: { trigger: ".project-strategy", start: "top 80%" },
+    });
+
+    gsap.from(".project-gallery__item", {
+      autoAlpha: 0, y: 120, duration: 1.5, stagger: 0.35, ease: "power3.out",
+      scrollTrigger: { trigger: "#project-gallery", start: "top 55%" },
+    });
   }
 });

@@ -355,17 +355,58 @@ body.page-aurex #main-header .logo-img--scrolled {
   padding-left: 5px;
 }
 
-/* BotÃ³n Contacto Derecho */
-.header__cta.desktop-only {
-  display: flex !important;
+/* Grupo derecho: logo duplicado + botón contacto */
+.header__right-group.desktop-only {
+  display: flex;
   align-items: center;
+  gap: 24px;
   z-index: 1001;
 }
 
 @media (max-width: 991px) {
-  .header__cta.desktop-only {
+  .header__right-group.desktop-only {
+    margin-left: auto;
+    margin-right: calc(5vw + 2px);
+    margin-top: -8px;
+  }
+
+  .header__right-group .logo-dup-img {
+    width: 120px;
+  }
+
+  .header__right-group .btn-cta {
     display: none !important;
   }
+}
+
+/* Logo duplicado */
+.header__logo-dup {
+  display: flex;
+  align-items: center;
+}
+
+.header__logo-dup .logo-dup-img {
+  width: 160px;
+  height: auto;
+}
+
+/* Toggle de logos duplicados en scroll */
+.logo-dup-img--scrolled {
+  display: none;
+}
+
+#main-header.scrolled .logo-dup-img--default {
+  display: none;
+}
+
+#main-header.scrolled .logo-dup-img--scrolled {
+  display: block;
+}
+
+/* BotÃ³n Contacto Derecho */
+.header__cta {
+  display: flex;
+  align-items: center;
 }
 
 /* BotÃ³n CTA (EXACTO) */
@@ -588,7 +629,7 @@ body.menu-open .close-label {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 120px 5vw;
+  padding: 80px 5vw;
   overflow: hidden;
   position: relative;
   background: transparent; /* Fondo transparente para ver el global */
@@ -635,12 +676,13 @@ body.menu-open .close-label {
 }
 .line-2 {
   justify-content: space-between;
+  gap: 8px;
   /* border: solid red 1px; */
 }
 /* ESTUDI */
 .hero-text {
   font-family: var(--font-main);
-  font-size: clamp(5rem, 13vw, 10rem);
+  font-size: clamp(3.5rem, 12vw, 10rem);
   font-weight: 800;
   color: #fff;
   line-height: 1em;
@@ -652,7 +694,7 @@ body.menu-open .close-label {
 }
 /* CREATIU */
 .hero-text.reveal-up {
-  font-size: clamp(3rem, 9vw, 8rem) !important;
+  font-size: clamp(2.8rem, 10vw, 8rem);
   white-space: nowrap; /* Mantenemos que no rompa línea */
   display: block;
   width: min-content; /* Obliga al contenedor a ajustarse a la palabra */
@@ -664,11 +706,12 @@ body.menu-open .close-label {
 }
 /* Descprició Hero */
 .hero-line-p p {
-  font-size: clamp(1rem, 1.4vw, 2rem);
+  font-size: clamp(0.9rem, 1.25vw, 1.75rem);
   font-weight: 500;
   color: #fff;
   line-height: 1.4;
   text-align: right;
+  max-width: 35vw;
   overflow: hidden;
   opacity: 0;
   /* border: solid red 2px; */
@@ -737,7 +780,8 @@ body.menu-open .close-label {
 
 .pill-image-container {
   height: clamp(60px, 12vw, 150px);
-  width: clamp(250px, 35vw, 600px);
+  width: clamp(250px, 44vw, 650px);
+  margin-bottom: 16px;
   background: #ccc;
   border-radius: 1000px;
   overflow: hidden;
@@ -788,15 +832,8 @@ body.menu-open .close-label {
   .hero-description p {
     font-size: 1.2rem;
   }
-  .hero-text.reveal-up {
-    font-size: 15vw !important;
-  }
-
   .hero-text {
     text-align: center !important;
-    /* El clamp actual ya escala bien, pero si lo ves enorme en mÃ³vil, 
-       puedes forzar un tamaÃ±o un poco mÃ¡s pequeÃ±o aquÃ­, por ejemplo:
-       font-size: clamp(3rem, 12vw, 5rem); */
   }
 
   .hero-text-block,
@@ -1087,6 +1124,7 @@ body.menu-open .close-label {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.65;
   transform: scale(1.4); /* Empezamos con un zoom para luego alejar */
 }
 
@@ -1974,6 +2012,149 @@ body.menu-open .close-label {
   gap: 30px;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+/* SECCIÓN VORASTUDIO + VORADATA (voraData Design) */
+.vorastudio {
+  padding: var(--spacing-xl, 120px) var(--spacing-md, 5vw);
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  z-index: 20;
+}
+
+.vorastudio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vorastudio-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.vorastudio-content {
+  max-width: 100%;
+}
+
+.vorastudio-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vorastudio-logo-img {
+  width: clamp(280px, 32vw, 520px);
+  height: auto;
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+}
+
+.studio-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.4rem 1rem;
+  background: rgba(233, 133, 37, 0.15);
+  border: 1px solid #E98525;
+  color: #E98525;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  animation: pulse-studio 3s infinite;
+  font-family: 'Fira Code', 'Courier New', monospace;
+}
+
+@keyframes pulse-studio {
+  0% { box-shadow: 0 0 0 0 rgba(233, 133, 37, 0.2); }
+  70% { box-shadow: 0 0 0 15px rgba(233, 133, 37, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(233, 133, 37, 0); }
+}
+
+.vorastudio .section-title.left {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.2rem, 3.8vw, 4rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.vorastudio .section-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.vorastudio .services-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.vorastudio .service-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.vorastudio .service-item .accent {
+  color: #E98525;
+  font-weight: 700;
+}
+
+.vorastudio .btn-outline {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #E98525;
+  color: #E98525;
+  font-size: 0.9rem;
+  background: transparent;
+  text-decoration: none;
+}
+
+.vorastudio .btn-outline:hover {
+  background: rgba(244, 142, 36, 0.1);
+  box-shadow: 0 0 15px rgba(244, 142, 36, 0.3);
+}
+
+@media (max-width: 768px) {
+  .vorastudio {
+    padding: 80px 5vw;
+  }
+  .vorastudio-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .vorastudio .section-title.left {
+    text-align: left;
+  }
+  .vorastudio .services-list-grid {
+    grid-template-columns: 1fr;
+  }
+  .vorastudio-logo-wrapper {
+    order: -1;
+  }
+  .vorastudio-logo-img {
+    width: clamp(140px, 30vw, 200px);
+  }
 }
 
 /* MARQUESINA DE LOGOS */

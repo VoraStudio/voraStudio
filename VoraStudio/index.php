@@ -53,15 +53,15 @@
     </script>
 
 
-    <!-- Google Fonts: Montserrat y Outfit -->
+    <!-- Google Fonts: Montserrat, Outfit, Inter, Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Outfit:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <!-- CSS Principal -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=2" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png?v=<?php echo time(); ?>" />
@@ -129,7 +129,8 @@
               <li><a href="#web">Projectes Web</a></li>
               <li><a href="#social">Social Media</a></li>
               <li><a href="#disseny">Disseny Gràfic</a></li>
-              <li><a href="#marqueting">Màrqueting Digital</a></li>             
+              <li><a href="#marqueting">Màrqueting Digital</a></li>
+              <li><a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer">voraData</a></li>
             </ul>
           </li>
           <li class="has-dropdown">
@@ -140,9 +141,17 @@
           </li>
         </ul>
 
-        <!-- Botón Contacto Derecho -->
-        <div class="header__cta desktop-only">
-          <a href="#contact" class="btn-cta">Contacte</a>
+        <!-- Grupo derecho: logo duplicado + botón contacto -->
+        <div class="header__right-group desktop-only">
+          <div class="header__logo-dup">
+            <a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer">
+              <img src="img/dataBlanc.png" alt="voraData" class="logo-dup-img logo-dup-img--default" />
+              <img src="img/voraV.png" alt="voraData" class="logo-dup-img logo-dup-img--scrolled" />
+            </a>
+          </div>
+          <div class="header__cta">
+            <a href="#contact" class="btn-cta">Contacte</a>
+          </div>
         </div>
       </nav>
     </header>
@@ -484,26 +493,26 @@
 
           <div class="divergent-grid__wrapper">
             <div class="divergent-grid__row divergent-grid__row--top">
-              <a href="projectes/projecte.php?project=raymel" class="divergent-grid__item"><img src="img/band.webp" alt="P1" /></a>
-              <a href="projectes/projecte.php?project=cfood" class="divergent-grid__item"><img src="img/cfood.webp" alt="P2" /></a>
-              <a href="projectes/projecte.php?project=wiar" class="divergent-grid__item"><img src="img/wiar.webp" alt="P3" /></a>
-              <a href="projectes/projecte.php?project=aurex" class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="P4" /></a>
-              <a href="projectes/projecte.php?project=spica" class="divergent-grid__item"><img src="img/web.webp" alt="P5" /></a>
-              <a href="projectes/projecte.php?project=novagal" class="divergent-grid__item"><img src="img/Targeta_.webp" alt="P6" /></a>
+              <a href="projectes/projecte.php?project=raymel" class="divergent-grid__item"><img src="img/para3.webp" alt="Raymel" /></a>
+              <a href="projectes/projecte.php?project=cfood" class="divergent-grid__item"><img src="img/cfood.webp" alt="Cfood" /></a>
+              <a href="projectes/projecte.php?project=wiar" class="divergent-grid__item"><img src="img/wiar_pic.webp" alt="Wiar" /></a>
+              <a href="projectes/projecte.php?project=aurex" class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="Aurex" /></a>
+              <a href="projectes/projecte.php?project=spica" class="divergent-grid__item"><img src="img/spica_web.jpg" alt="Spica" /></a>
+              <a href="projectes/projecte.php?project=novagal" class="divergent-grid__item"><img src="img/Targeta_.webp" alt="Novagal" /></a>
             </div>
 
             <div class="divergent-grid__row divergent-grid__row--bottom">
-              <a href="projectes/projecte.php?project=cfood" class="divergent-grid__item"><img src="img/cfood.webp" alt="P7" /></a>
-              <a href="projectes/projecte.php?project=vitoria-teylor" class="divergent-grid__item"><img src="img/web.webp" alt="P8" /></a>
-              <a href="projectes/projecte.php?project=aurex" class="divergent-grid__item"><img src="img/aurexFinestra.webp" alt="P9" /></a>
+              <a href="projectes/projecte.php?project=innovafp" class="divergent-grid__item"><img src="img/inovafp_pic.webp" alt="InnovaFP" /></a>
+              <a href="projectes/projecte.php?project=t-izquierdo" class="divergent-grid__item"><img src="img/t.izquiedo_cataleg.webp" alt="Toni Izquierdo" /></a>
+              <a href="projectes/projecte.php?project=aurex" class="divergent-grid__item"><img src="img/aurex-web2.webp" alt="Aurex" /></a>
               <a href="projectes/projecte.php?project=novagal" class="divergent-grid__item">
-                <img src="img/Targeta_.webp" alt="P10" />
+                <img src="img/Targetes.webp" alt="Novagal" />
               </a>
               <a href="projectes/projecte.php?project=wiar" class="divergent-grid__item">
-                <img src="img/wiar.webp" alt="P11" />
+                <img src="img/wiat-2.webp" alt="Wiar" />
               </a>
               <a href="projectes/projecte.php?project=dtast" class="divergent-grid__item">
-                <img src="img/band.webp" alt="P12" />
+                <img src="img/dtats_pic.png" alt="Dtast" />
               </a>
             </div>
 
@@ -783,6 +792,46 @@
               </div>
             </div>
           </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VORASTUDIO + VORADATA (voraData Design) -->
+      <section class="vorastudio" id="vorastudio">
+        <div class="vorastudio-container">
+          <div class="vorastudio-grid">
+            <div class="vorastudio-content">
+              <div class="studio-badge mono">
+                <span>voraData</span>
+              </div>
+              <h2 class="section-title left">Visió 360º: Disseny, màrqueting, web i IA</h2>
+              <p class="section-subtitle">
+                Assumim projectes integrals. El nostre equip multidisciplinari combina la creativitat de
+                <strong>VoraStudio</strong> amb la potència tècnica de <strong>VoraData</strong>.
+              </p>
+              <div class="services-list-grid">
+                <div class="service-item">
+                  <span class="accent">▹</span> Identitat de Marca &amp; Branding
+                </div>
+                <div class="service-item">
+                  <span class="accent">▹</span> Disseny UX/UI Premium
+                </div>
+                <div class="service-item">
+                  <span class="accent">▹</span> Màrqueting i Publicitat Digital
+                </div>
+                <div class="service-item">
+                  <span class="accent">▹</span> Consultoria &amp; Software a Mida
+                </div>
+              </div>
+              <div style="margin-top: 3rem;">
+                <a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 0.8rem 2rem;">Parlem-ne <span class="accent">→</span></a>
+              </div>
+            </div>
+            <div class="vorastudio-logo-wrapper">
+              <a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer">
+                <img src="img/dataBlanc.png" alt="voraData" class="vorastudio-logo-img" />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
