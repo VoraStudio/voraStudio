@@ -82,15 +82,14 @@
     <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le_-LssAAAAAHRq37HNjmJNUSzOAxgmAhJkOlNL"></script> 
     -->
 
-    <!-- Google tag (Google Analytics) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKMK1K1SMN"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5D9ZE8SPNG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'G-CKMK1K1SMN');
-  </script>
+      gtag('config', 'G-5D9ZE8SPNG');
+    </script>
   </head>
   <body>
     <!-- PRELOADER -->
