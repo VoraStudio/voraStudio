@@ -4,10 +4,11 @@
    Carrega les dades del projecte des de VoraCMS.
    Si el CMS no està disponible, fa fallback al JSON local.
 
-   CMS API: http://localhost:8000/api/projecte?client=default
+   CMS API: http://localhost:8000/api/vorastudio-projects?locale=ca
    ══════════════════════════════════════════════════════════════ */
 
 const CMS_API_BASE = 'http://localhost:8000';
+const CMS_API_TOKEN = 'UJIv45gTpMGckBdJjDg3UmkuqZzOWqHV';
 
 document.addEventListener('DOMContentLoaded', function () {
   const isProjectePage = document.body.classList.contains("page-projecte");
@@ -21,13 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ─── Intentar CMS primer ─── */
     try {
-      const res = await fetch(`${CMS_API_BASE}/api/projecte?client=default&locale=ca`);
+      const res = await fetch(`${CMS_API_BASE}/api/vorastudio-projects?locale=ca`, {
+        headers: { 'Authorization': `Bearer ${CMS_API_TOKEN}` },
+      });
       if (!res.ok) throw new Error(`CMS HTTP ${res.status}`);
       const json = await res.json();
       const projects = json.data;
 
-      /* Buscar per slug del títol (aurex → Aurex Immobles) */
-      const data = projects.find(p => slugify(p.titol) === projectSlug);
+      /* Buscar per project_slug (ex: "aurex", "comercial-ross") */
+      const data = projects.find(p => p.project_slug === projectSlug);
       if (!data) throw new Error("Projecte no trobat al CMS");
 
       renderProjectFromCMS(data);
@@ -41,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const res = await fetch(`../data/projects.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const projects = await res.json();
-      const data = projects.find(p => p.id === projectSlug);
+      const data = projects.find(p => slugify(p.name) === projectSlug || p.id === projectSlug);
       if (!data) throw new Error("Projecte no trobat");
 
       renderProjectFromLocal(data);
@@ -72,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderProjectFromCMS(data) {
     document.title = `VoraStudio | ${data.titol}`;
 
-    const logo = data.logo_client?.[0]?.url ? imgUrl(data.logo_client[0].url) : '';
+    const logo = data.logo?.[0]?.url ? imgUrl(data.logo[0].url) : '';
     const tags = data.tags ? data.tags.split(',').map(t => t.trim()).filter(Boolean) : [];
     const website = data.website && data.website !== '#' ? data.website : '#';
     const websiteLabel = data.website && data.website !== '#'

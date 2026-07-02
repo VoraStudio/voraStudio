@@ -114,7 +114,7 @@ if (!$project) {
               <h3 class="projecte-card__title">Aurex Immobles</h3>
               <p class="projecte-card__subtitle">Pack Master</p>
             </div>
-            <a href="projecte.php?project=aurex" class="projecte-card" data-project="aurex">
+            <a href="projecte.php?project=aurex-immobles" class="projecte-card" data-project="aurex-immobles">
               <img src="../img/aurexFinestra.webp" alt="Aurex Immobles" loading="lazy" />
             </a>
           </div>
@@ -124,7 +124,7 @@ if (!$project) {
               <h3 class="projecte-card__title">Comercial Ross</h3>
               <p class="projecte-card__subtitle">Pack Essencial</p>
             </div>
-            <a href="projecte.php?project=comercial-ross" class="projecte-card" data-project="comercial-ross">
+            <a href="projecte.php?project=comercial-ros" class="projecte-card" data-project="comercial-ros">
               <img src="../img/para3.webp" alt="Comercial Ross" loading="lazy" />
             </a>
           </div>
