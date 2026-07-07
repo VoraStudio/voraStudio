@@ -1,14 +1,13 @@
 /* ══════════════════════════════════════════════════════════════
    dynamic-content.js — VoraStudio
    ══════════════════════════════════════════════════════════════
-   Carrega les dades del projecte des de VoraCMS.
+   Carrega les dades del projecte des de VoraCMS (local per proves).
    Si el CMS no està disponible, fa fallback al JSON local.
 
-   CMS API: http://localhost:8000/api/vorastudio-projects?locale=ca
+   CMS API: http://localhost:8000/api/public/web/vorastudio-projects?locale=ca
    ══════════════════════════════════════════════════════════════ */
 
 const CMS_API_BASE = 'http://localhost:8000';
-const CMS_API_TOKEN = 'UJIv45gTpMGckBdJjDg3UmkuqZzOWqHV';
 
 document.addEventListener('DOMContentLoaded', function () {
   const isProjectePage = document.body.classList.contains("page-projecte");
@@ -22,15 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ─── Intentar CMS primer ─── */
     try {
-      const res = await fetch(`${CMS_API_BASE}/api/vorastudio-projects?locale=ca`, {
-        headers: { 'Authorization': `Bearer ${CMS_API_TOKEN}` },
-      });
+      const res = await fetch(`${CMS_API_BASE}/api/public/web/vorastudio-projects?locale=ca`);
       if (!res.ok) throw new Error(`CMS HTTP ${res.status}`);
       const json = await res.json();
       const projects = json.data;
 
-      /* Buscar per project_slug (ex: "aurex", "comercial-ross") */
-      const data = projects.find(p => p.project_slug === projectSlug);
+      /* Buscar per slug_del_projecte o project_slug */
+      const data = projects.find(p => (p.slug_del_projecte || p.project_slug) === projectSlug);
       if (!data) throw new Error("Projecte no trobat al CMS");
 
       renderProjectFromCMS(data);

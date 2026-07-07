@@ -107,129 +107,18 @@ if (!$project) {
 
       <!-- SECCIÓN GALERÍA HORIZONTAL -->
       <section class="projectes-scroll" id="projectes-scroll">
+        <button class="carousel-arrow carousel-arrow--left" aria-label="Anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
         <div class="projectes-scroll__track" id="projectes-track">
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Aurex Immobles</h3>
-              <p class="projecte-card__subtitle">Pack Master</p>
-            </div>
-            <a href="projecte.php?project=aurex-immobles" class="projecte-card" data-project="aurex-immobles">
-              <img src="../img/aurexFinestra.webp" alt="Aurex Immobles" loading="lazy" />
-            </a>
+          <div class="carousel-spinner" id="carousel-spinner">
+            <img src="../img/icone nou.png" alt="" class="carousel-spinner__logo" />
+            <p class="carousel-spinner__text">Cargant...</p>
           </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Comercial Ross</h3>
-              <p class="projecte-card__subtitle">Pack Essencial</p>
-            </div>
-            <a href="projecte.php?project=comercial-ros" class="projecte-card" data-project="comercial-ros">
-              <img src="../img/para3.webp" alt="Comercial Ross" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">C-Food</h3>
-              <p class="projecte-card__subtitle">Pack Integral</p>
-            </div>
-            <a href="projecte.php?project=cfood" class="projecte-card" data-project="cfood">
-              <img src="../img/cfood.webp" alt="C-Food" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Guardavan</h3>
-              <p class="projecte-card__subtitle">Pack Integral</p>
-            </div>
-            <a href="projecte.php?project=guardavan" class="projecte-card" data-project="guardavan">
-              <img src="../img/Targetes.webp" alt="Guardavan" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Wiar</h3>
-              <p class="projecte-card__subtitle">Pack Essencial</p>
-            </div>
-            <a href="projecte.php?project=wiar" class="projecte-card" data-project="wiar">
-              <img src="../img/wiar.webp" alt="Wiar" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Raymel</h3>
-              <p class="projecte-card__subtitle">Pack Integral</p>
-            </div>
-            <a href="projecte.php?project=raymel" class="projecte-card" data-project="raymel">
-              <img src="../img/band.webp" alt="Raymel" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Spica</h3>
-              <p class="projecte-card__subtitle">Pack Essencial</p>
-            </div>
-            <a href="projecte.php?project=spica" class="projecte-card" data-project="spica">
-              <img src="../img/web.webp" alt="Spica" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Palmito House</h3>
-              <p class="projecte-card__subtitle">Pack Essencial</p>
-            </div>
-            <a href="projecte.php?project=palmitohouse" class="projecte-card" data-project="palmitohouse">
-              <img src="../img/Mockup 2.webp" alt="Palmito House" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">InnovaFP</h3>
-              <p class="projecte-card__subtitle">Pack Essencial</p>
-            </div>
-            <a href="projecte.php?project=innovafp" class="projecte-card" data-project="innovafp">
-              <img src="../img/Mokcup.webp" alt="InnovaFP" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Novagal</h3>
-              <p class="projecte-card__subtitle">Pack Master</p>
-            </div>
-            <a href="projecte.php?project=novagal" class="projecte-card" data-project="novagal">
-              <img src="../img/Targeta_.webp" alt="Novagal" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">D-Tast</h3>
-              <p class="projecte-card__subtitle">Pack Essencial</p>
-            </div>
-            <a href="projecte.php?project=dtast" class="projecte-card" data-project="dtast">
-              <img src="../img/band.webp" alt="D-Tast" loading="lazy" />
-            </a>
-          </div>
-
-          <div class="projecte-card-wrap">
-            <div class="projecte-card__info">
-              <h3 class="projecte-card__title">Vitoria Teylor</h3>
-              <p class="projecte-card__subtitle">Pack Master</p>
-            </div>
-            <a href="projecte.php?project=vitoria-teylor" class="projecte-card" data-project="vitoria-teylor">
-              <img src="../img/web.webp" alt="Vitoria Teylor" loading="lazy" />
-            </a>
-          </div>
-
         </div>
+        <button class="carousel-arrow carousel-arrow--right" aria-label="Següent">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </section>
 
       <div id="toast-container" class="toast-hidden"></div>

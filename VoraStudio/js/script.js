@@ -14,7 +14,6 @@ gsap.ticker.lagSmoothing(0);
 window.addEventListener("DOMContentLoaded", () => {
   // Selectores Globales
   const preloader = document.getElementById("preloader");
-  const percent = document.getElementById("loader-percentage");
   const logoImg = document.querySelector(".logo-img");
   const galleryLogo = document.querySelector(".gallery-badge-img");
   const logoMobil = innerWidth < 800;
@@ -26,16 +25,16 @@ window.addEventListener("DOMContentLoaded", () => {
                     SECCIÓN: SPINNER DEL INICIO
     ========================================================================== */
   if (preloader) {
-    let count = 0;
-    const interval = setInterval(() => {
-      count += Math.floor(Math.random() * 10) + 1;
-      if (count >= 100) {
-        count = 100;
-        clearInterval(interval);
+    /* Esperar que la pàgina carregui o mínim 1.5s */
+    var minTime = Date.now() + 1500;
+    function tryHide() {
+      if (Date.now() >= minTime) {
         hidePreloader();
+      } else {
+        setTimeout(hidePreloader, minTime - Date.now());
       }
-      if (percent) percent.innerText = count;
-    }, 40);
+    }
+    window.addEventListener('load', tryHide);
   } else {
     // Si no hi ha preloader (pàgines internes), iniciem amb un petit retard per seguretat
     setTimeout(startAnimations, 500);
