@@ -1,0 +1,93 @@
+/* === ROOT.CSS === */
+/* Tokens de diseño globales. Cada decisión vive acá. */
+
+/* === BREAKPOINTS === */
+:root {
+  --bp-sm: 320px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1440px;
+}
+
+/* === COLORS === */
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-raised: #1e1e1e;
+
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #737373;
+
+  --color-accent: #00f0ff;
+  --color-accent-hover: #33f3ff;
+
+  --color-border: #262626;
+  --color-border-focus: #00f0ff;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
+
+/* === TYPOGRAPHY === */
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-xs: clamp(0.75rem, calc(0.5vw + 0.625rem), 0.875rem);
+  --text-sm: clamp(0.875rem, calc(0.5vw + 0.75rem), 1rem);
+  --text-base: clamp(1rem, calc(0.5vw + 0.875rem), 1.125rem);
+  --text-lg: clamp(1.125rem, calc(1vw + 0.875rem), 1.5rem);
+  --text-xl: clamp(1.5rem, calc(2vw + 1rem), 2.5rem);
+  --text-2xl: clamp(2rem, calc(3vw + 1rem), 4rem);
+  --text-3xl: clamp(2.5rem, calc(4vw + 1rem), 6rem);
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+}
+
+/* === SPACING === */
+:root {
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-10: 5rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --space-20: 10rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* === TRANSITIONS === */
+:root {
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Z-INDEX === */
+:root {
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-toast: 700;
+}

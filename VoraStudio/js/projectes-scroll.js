@@ -8,7 +8,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ─── CMS API Config (local per proves) ─── */
-  var CMS_API_BASE = 'http://localhost:8000';
+  var CMS_API_BASE = 'https://voracms.voradata.cat';
+  var CMS_API_TOKEN = 'UJIv45gTpMGckBdJjDg3UmkuqZzOWqHV';
 
   /* ─── Inici ─── */
   loadCarouselFromCMS();
@@ -22,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function loadCarouselFromCMS() {
     try {
-      var res = await fetch(CMS_API_BASE + '/api/public/web/vorastudio-projects?locale=ca');
+      var res = await fetch(CMS_API_BASE + '/api/public/web/vorastudio-projects?locale=ca', {
+        headers: { 'Authorization': 'Bearer ' + CMS_API_TOKEN }
+      });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       var json = await res.json();
       var projects = json.data;

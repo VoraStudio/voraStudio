@@ -4,10 +4,11 @@
    Carrega les dades del projecte des de VoraCMS (local per proves).
    Si el CMS no està disponible, fa fallback al JSON local.
 
-   CMS API: http://localhost:8000/api/public/web/vorastudio-projects?locale=ca
+   CMS API: https://voracms.voradata.cat/api/public/web/vorastudio-projects?locale=ca
    ══════════════════════════════════════════════════════════════ */
 
-const CMS_API_BASE = 'http://localhost:8000';
+const CMS_API_BASE = 'https://voracms.voradata.cat';
+const CMS_API_TOKEN = 'UJIv45gTpMGckBdJjDg3UmkuqZzOWqHV';
 
 document.addEventListener('DOMContentLoaded', function () {
   const isProjectePage = document.body.classList.contains("page-projecte");
@@ -21,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ─── Intentar CMS primer ─── */
     try {
-      const res = await fetch(`${CMS_API_BASE}/api/public/web/vorastudio-projects?locale=ca`);
+      const res = await fetch(`${CMS_API_BASE}/api/public/web/vorastudio-projects?locale=ca`, {
+        headers: { 'Authorization': 'Bearer ' + CMS_API_TOKEN }
+      });
       if (!res.ok) throw new Error(`CMS HTTP ${res.status}`);
       const json = await res.json();
       const projects = json.data;
