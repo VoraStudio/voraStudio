@@ -3611,7 +3611,7 @@ body.page-projectes-gallery {
 .projectes-scroll__heading {
   font-family: var(--font-title);
   font-size: clamp(1.8rem, 4vw, 3.5rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: #1a1a1a;
