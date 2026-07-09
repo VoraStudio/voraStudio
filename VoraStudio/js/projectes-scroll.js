@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var title = p.titol || 'Projecte';
       var slug = p.slug_del_projecte || p.project_slug || '';
       var packRaw = p.packs || p.pack_type || 'Essencial';
-      var packLabel = packRaw.indexOf('Pack ') === 0 ? packRaw : 'Pack ' + packRaw;
+      var packLabel = packRaw;
 
       /* Imatge del carrusel: imatge_principal > main_image > primera de galeria */
       var imgSrc = '';

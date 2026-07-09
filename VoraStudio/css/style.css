@@ -3601,10 +3601,22 @@ body.page-projectes-gallery {
   color: #000;
   line-height: 0.9;
   letter-spacing: -0.04em;
-  padding: 0 5vw;
+  padding: 0 5vw 0 10vw;
   margin-top: 5vh;
   pointer-events: none;
   z-index: 2;
+}
+
+/* Título del carrusel en página de detalle de proyecto */
+.projectes-scroll__heading {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin: 0 5vw 2.5rem;
+  padding-top: 1rem;
 }
 
 .gallery-footer {
