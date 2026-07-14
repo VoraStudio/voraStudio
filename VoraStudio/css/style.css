@@ -612,6 +612,19 @@ body.menu-open .close-label {
   .menu-toggle {
     display: flex;
   }
+  .header__cta {
+    display: flex !important;
+    position: absolute !important;
+    right: calc(5vw + 60px) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1050;
+  }
+  .header__cta .btn-cta {
+    padding: 6px 16px !important;
+    font-size: 0.72rem !important;
+    margin-right: 0 !important;
+  }
 }
 
 /* ==========================================================================
@@ -694,7 +707,7 @@ body.menu-open .close-label {
 }
 /* CREATIU */
 .hero-text.reveal-up {
-  font-size: clamp(2.8rem, 10vw, 8rem);
+  font-size: clamp(2.8rem, 10vw, 7rem);
   white-space: nowrap; /* Mantenemos que no rompa línea */
   display: block;
   width: min-content; /* Obliga al contenedor a ajustarse a la palabra */
@@ -753,7 +766,7 @@ body.menu-open .close-label {
 .vorastudio-text,
 .vora-text {
   font-family: var(--font-main);
-  font-size: clamp(3rem, 5vw, 8rem);
+  font-size: clamp(3rem, 5vw, 7.5rem);
   font-weight: 800;
   color: #ffffff;
   line-height: 1;
@@ -797,7 +810,7 @@ body.menu-open .close-label {
   object-fit: cover;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .hero-logo-white {
     width: 15vw;
   }
@@ -821,6 +834,8 @@ body.menu-open .close-label {
 
   .hero-line-p p {
     text-align: center;
+    width: 100%;
+    max-width: 70% !important;
   }
 
   .hero-description {
@@ -884,6 +899,15 @@ body.menu-open .close-label {
 
   .hero-container {
     padding: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text {
+    font-size: clamp(2rem, 11vw, 3.5rem) !important;
+  }
+  .hero-text.reveal-up {
+    font-size: clamp(1.8rem, 9vw, 2.8rem) !important;
   }
 }
 
@@ -977,7 +1001,7 @@ body.menu-open .close-label {
 /* ==========================================================================
    ADAPTACIÓN MÓVIL (ESTRATEGIA)
    ========================================================================== */
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .strategy-section {
     padding: 80px 0px;
     min-height: auto;
@@ -1169,7 +1193,7 @@ body.menu-open .close-label {
   color: rgba(255, 255, 255, 0.5);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .mask-title {
     font-size: 15vw;
   }
@@ -1442,7 +1466,7 @@ body.menu-open .close-label {
   margin-top: 5px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .services-section {
     display: flex;
     flex-direction: column;
@@ -2255,6 +2279,7 @@ body.menu-open .close-label {
     gap: 15px;
     padding: 5px 0;
     text-align: center;
+    max-height: none !important;
   }
 
   .logos-marquee__content img {
@@ -2762,19 +2787,6 @@ select.form-field__input option {
 }
 
 @media (max-width: 768px) {
-  .divergent-grid__wrapper {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  .divergent-grid__item {
-    flex: 0 0 100vw;
-    scroll-snap-align: start;
-  }
-  .divergent-grid__row--bottom {
-    display: none;
-  }
   .form-row {
     flex-direction: column;
     gap: 40px;
@@ -2897,7 +2909,7 @@ select.form-field__input option {
   padding: 2rem;
   padding-top: 4rem;
 }
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .aurex-hero__right {
     padding-top: 0;
   }
@@ -3195,7 +3207,7 @@ select.form-field__input option {
   padding-top: 4rem;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .project-hero__right {
     padding-top: 0;
   }
@@ -3858,12 +3870,12 @@ body.page-projectes-gallery {
 .carousel-arrow--right { right: 8px; }
 
 /* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: Galeria Horitzontal (max-width: 768px)
+   RESPONSIVE: Galeria Horitzontal (max-width: 1023px)
    ═══════════════════════════════════════════════════════════════
    Regla #17 — una sola @media per classe. Totes les propietats
    responsive de cada selector agrupades aquí. */
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .projectes-footer-title {
     padding: 6vh 5vw 8vh;
   }
@@ -3873,7 +3885,7 @@ body.page-projectes-gallery {
   }
 
   .projectes-scroll {
-    height: 80vh;
+    height: 85vh;
   }
 
   .projectes-scroll__track {
@@ -3885,22 +3897,22 @@ body.page-projectes-gallery {
   }
 
   .projectes-scroll__title {
-    top: 66vh;
+    top: 62vh;
     font-size: clamp(3.5rem, 15vw, 6rem);
     margin-top: 0;
   }
 
   .projecte-card-wrap {
-    width: clamp(180px, 48vw, 270px);
-    scroll-snap-align: start;
+    width: clamp(260px, 75vw, 360px);
+    scroll-snap-align: center;
   }
 
   .projecte-card {
-    height: 55vh;
+    height: 45vh;
   }
 
   .projecte-card:hover {
-    height: 65vh;
+    height: 45vh;
   }
 
   .projecte-card__overlay {
@@ -3911,14 +3923,16 @@ body.page-projectes-gallery {
 
   .carousel-arrow {
     display: flex;
+    width: 48px;
+    height: 48px;
   }
 
   .carousel-arrow--left {
-    left: 4px;
+    left: 16px;
   }
 
   .carousel-arrow--right {
-    right: 4px;
+    right: 16px;
   }
 }
 
@@ -3966,7 +3980,7 @@ body.page-projecte .project-gallery {
 /* La galería horizontal de proyectos tiene texto oscuro para encajar con el fondo blanco y margen de 5vh */
 body.page-projecte .projectes-scroll {
   background-color: #fff !important;
-  margin-top: 5vh !important;
+  margin-top: 5vh;
 }
 
 body.page-projecte .projectes-scroll__title,
@@ -4021,4 +4035,30 @@ body.page-projecte #main-footer.footer-section {
     padding-top: 10px !important;
     padding-bottom: 40px !important;
   }
+}
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA EL SUB-HEADER (PÁGINAS DE FONDO BLANCO)
+   ========================================================================== */
+#sub-header .menu-toggle .line {
+  background-color: #000 !important;
+}
+
+#sub-header .btn-cta {
+  padding: 6px 18px !important;
+  font-size: 0.75rem !important;
+  background-color: #f5a04e !important;
+  color: #fff !important;
+  border: 2px solid #f5a04e !important;
+}
+
+#sub-header .btn-cta:hover {
+  background-color: transparent !important;
+  color: #f5a04e !important;
+  border: 2px solid #f5a04e !important;
+  padding-right: 18px !important;
+}
+
+#sub-header .btn-cta::after {
+  display: none !important;
 }

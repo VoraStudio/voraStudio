@@ -1,0 +1,9 @@
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+# Bloquejar qualsevol fitxer que comenci per punt (dotfiles)
+<FilesMatch "^\.">
+  Require all denied
+  Deny from all
+</FilesMatch>

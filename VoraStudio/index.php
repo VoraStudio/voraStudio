@@ -3,9 +3,33 @@
 //$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 //$dotenv->load();
 
-// Generem un token CSRF basat en el secret del .env i la data del dia
-// Això ens permet validar-lo sense dependre de la sessió de PHP
-//$csrf_token = hash_hmac('sha256', date('Y-m-d'), $_ENV['CSRF_TOKEN_SECRET']);
+require_once __DIR__ . '/includes/CmsClient.php';
+
+$cmsUrl = getenv('CMS_URL') ?: 'https://voracms.voradata.cat';
+$origin = getenv('SSR_ORIGIN') ?: 'https://vorastudio.cat';
+$cms = new CmsClient($cmsUrl, $origin);
+
+/* CSRF per al formulari de contacte — basat en sessió */
+if (!session_id()) session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
+
+/* Prova de connexió SSR — CmsClient::fetch() operatiu */
+// $cms->fetch('/api/public/vorastudio/pagina');
+
+// Registrar visita si tenim una entrada vàlida (paràmetre ?entry_id=)
+// La IP i User-Agent reals del visitant s'envien al cos JSON
+if (isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
+    $visitBody = [
+        'entry_id' => (int) $_GET['entry_id'],
+        'path' => $_SERVER['REQUEST_URI'] ?? '/',
+        'client_ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+        'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+    ];
+    $cms->post('/api/visit', $visitBody);
+}
 ?>
 
 <!doctype html>
@@ -128,7 +152,7 @@
             </ul>
           </li>
           <li class="has-dropdown">
-            <a href="html/projectes.html">Projectes</a>
+            <a href="html/projectes.php">Projectes</a>
           </li>
           <li class="has-dropdown">
             <a href="#pricing">Packs</a>
@@ -158,7 +182,7 @@
       <div class="overlay-content">
         <ul class="overlay-links">
           <li><a href="html/serveis.php">Serveis</a></li>
-          <li><a href="html/projectes.html">Projectes</a></li>
+          <li><a href="html/projectes.php">Projectes</a></li>
           <li><a href="#pricing">Packs</a></li>
           <li><a href="#contact">Contacte</a></li>
         </ul>

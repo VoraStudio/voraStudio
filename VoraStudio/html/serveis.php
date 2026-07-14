@@ -66,7 +66,7 @@ if (empty($_SESSION['csrf_token'])) {
             </ul>
           </li>
           <li class="has-dropdown">
-            <a href="projectes.html">Projectes</a>
+            <a href="projectes.php">Projectes</a>
           </li>
           <li class="has-dropdown">
             <a href="../index.php#pricing">Packs</a>
@@ -97,7 +97,7 @@ if (empty($_SESSION['csrf_token'])) {
               <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>            
             </ul>
           </li>
-          <li><a href="projectes.html">Projectes</a></li>
+          <li><a href="projectes.php">Projectes</a></li>
           <li><a href="../index.php#pricing">Packs</a></li>
           <li><a href="../index.php#contacte">Contacte</a></li>
         </ul>
