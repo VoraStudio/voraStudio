@@ -60,7 +60,7 @@ if (empty($_SESSION['csrf_token'])) {
             </ul> -->
           </li>
           <li class="has-dropdown">
-            <a href="projectes.php" style="color: #000;">Projectes</a>
+            <a href="../html/projectes.php" style="color: #000;">Projectes</a>
             <!-- <ul class="dropdown-menu">
               <li><a href="#">Packs</a></li>
               <li><a href="#">Web</a></li>

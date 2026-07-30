@@ -1,6 +1,14 @@
 /* ==========================================================================
    ANIMACIONS VoraStudio (v26 Slide-up Mask Reveal & Intro Transitions)
    ========================================================================== */
+
+/* Silenciar warning de SplitText per fonts no carregades */
+const _origWarn = console.warn;
+console.warn = function (msg) {
+  if (typeof msg === "string" && msg.includes("SplitText called before fonts loaded")) return;
+  _origWarn.apply(console, arguments);
+};
+
 try {
   gsap.registerPlugin(ScrollTrigger, TextPlugin, SplitText);
 } catch (e) {
@@ -14,7 +22,6 @@ gsap.ticker.lagSmoothing(0);
 window.addEventListener("DOMContentLoaded", () => {
   // Selectores Globales
   const preloader = document.getElementById("preloader");
-  const percent = document.getElementById("loader-percentage");
   const logoImg = document.querySelector(".logo-img");
   const galleryLogo = document.querySelector(".gallery-badge-img");
   const logoMobil = innerWidth < 800;
@@ -26,16 +33,16 @@ window.addEventListener("DOMContentLoaded", () => {
                     SECCIÓN: SPINNER DEL INICIO
     ========================================================================== */
   if (preloader) {
-    let count = 0;
-    const interval = setInterval(() => {
-      count += Math.floor(Math.random() * 10) + 1;
-      if (count >= 100) {
-        count = 100;
-        clearInterval(interval);
+    /* Esperar que la pàgina carregui o mínim 1.5s */
+    var minTime = Date.now() + 1500;
+    function tryHide() {
+      if (Date.now() >= minTime) {
         hidePreloader();
+      } else {
+        setTimeout(hidePreloader, minTime - Date.now());
       }
-      if (percent) percent.innerText = count;
-    }, 40);
+    }
+    window.addEventListener('load', tryHide);
   } else {
     // Si no hi ha preloader (pàgines internes), iniciem amb un petit retard per seguretat
     setTimeout(startAnimations, 500);
@@ -96,6 +103,8 @@ window.addEventListener("DOMContentLoaded", () => {
       const tlPortfolio = gsap.timeline({ defaults: { duration: 1.2, ease: "power4.out" } });
       tlPortfolio.to(".portfolio-hero__title", { autoAlpha: 1, y: 0, delay: 0.5 }).to(".portfolio-hero__subtitle", { autoAlpha: 1, y: 0 }, "-=0.8");
     }
+
+
 
     //#region HERO
 
@@ -470,7 +479,7 @@ window.addEventListener("DOMContentLoaded", () => {
             scrub: true,
             invalidateOnRefresh: true,
             onEnter: () => {
-              console.log("Card " + i + " completada");
+              // Card completada
             },
           },
         });
@@ -731,6 +740,8 @@ window.addEventListener("DOMContentLoaded", () => {
        ========================================================================== */
   }
 
+
+
   /* ==========================================================================
      SECCIÓ: ENVÍO DE FORMULARIO (Segur i amb GSAP)
      Descripció: Gestió d'enviament via AJAX, reCAPTCHA i notificacions Toast.
@@ -949,4 +960,176 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+
+  /*==========================================================================
+    SECCIÓN: BRAND SHOWCASE (Logo + Texto animado + Scramble)
+    ========================================================================== */
+
+  // --- TextScramble class ---
+  class TextScramble {
+    constructor(el) {
+      this.el = el;
+      this.chars = "!<>-_\\/[]{}—=+*^?#__";
+      this.update = this.update.bind(this);
+    }
+    setText(newText) {
+      return new Promise((resolve) => {
+        this.resolve = resolve;
+        const oldText = this.el.innerText;
+        const len = Math.max(oldText.length, newText.length);
+        this.queue = [];
+        for (let i = 0; i < len; i++) {
+          const from = oldText[i] || "";
+          const to = newText[i] || "";
+          const start = Math.floor(Math.random() * 300);
+          const end = start + Math.floor(Math.random() * 200);
+          this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+      });
+    }
+    update() {
+      let output = "";
+      let complete = 0;
+      for (let i = 0, n = this.queue.length; i < n; i++) {
+        let { from, to, start, end, char } = this.queue[i];
+        if (this.frame >= end) {
+          complete++;
+          output += to;
+        } else if (this.frame >= start) {
+          if (!char || Math.random() < 0.28) {
+            char = this.randomChar();
+            this.queue[i].char = char;
+          }
+          output += `<span class="scramble-char">${char}</span>`;
+        } else {
+          output += from;
+        }
+      }
+      this.el.innerHTML = output;
+      if (complete === this.queue.length) {
+        this.resolve();
+      } else {
+        this.frameRequest = requestAnimationFrame(this.update);
+        this.frame++;
+      }
+    }
+    randomChar() {
+      return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+  }
+
+  // --- SECCIÓN VORASTUDIO ---
+  const studioSection = document.querySelector(".vorastudio");
+  if (studioSection) {
+    const studioBadge = studioSection.querySelector(".studio-badge");
+    const studioTitle = studioSection.querySelector(".section-title");
+    const studioSubtitle = studioSection.querySelector(".section-subtitle");
+    const studioItems = studioSection.querySelectorAll(".service-item");
+    const studioBtn = studioSection.querySelector(".btn-outline");
+
+    // Badge: aparece con fade + scale
+    if (studioBadge) {
+      gsap.from(studioBadge, {
+        scale: 0.8,
+        autoAlpha: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: studioSection,
+          start: "top 80%",
+          end: "top 55%",
+          scrub: 1,
+        },
+      });
+    }
+
+    // Título: efecto Scramble
+    if (studioTitle) {
+      const titleChars = studioTitle.innerText.split("");
+      const chars = "!<>-_\\/[]{}—=+*^?#__";
+      const thresholds = titleChars.map(() => Math.random());
+      const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
+
+      function renderStudioScramble(progress) {
+        let output = "";
+        for (let i = 0; i < titleChars.length; i++) {
+          if (titleChars[i] === " ") {
+            output += " ";
+          } else if (progress >= thresholds[i]) {
+            output += titleChars[i];
+          } else {
+            output += `<span class="scramble-char">${randomChar()}</span>`;
+          }
+        }
+        studioTitle.innerHTML = output;
+      }
+
+      renderStudioScramble(0);
+
+      ScrollTrigger.create({
+        trigger: studioSection,
+        start: "top 20%",
+        end: "bottom 40%",
+        scrub: 1.5,
+        onUpdate: (self) => {
+          renderStudioScramble(self.progress);
+        },
+      });
+    }
+
+    // Subtítulo: palabras progresivas
+    if (studioSubtitle) {
+      const splitWords = new SplitText(studioSubtitle, { type: "words" });
+      gsap.set(splitWords.words, { autoAlpha: 0.1 });
+
+      gsap.to(splitWords.words, {
+        autoAlpha: 1,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: "none",
+        scrollTrigger: {
+          trigger: studioSection,
+          start: "top 68%",
+          end: "top 25%",
+          scrub: 1,
+        },
+      });
+    }
+
+    // Service items: aparecen desde izquierda
+    if (studioItems.length) {
+      gsap.from(studioItems, {
+        x: -30,
+        autoAlpha: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: studioSection,
+          start: "top 60%",
+          end: "top 30%",
+          scrub: 1,
+        },
+      });
+    }
+
+    // Botón: fade up
+    if (studioBtn) {
+      gsap.from(studioBtn, {
+        y: 20,
+        autoAlpha: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: studioSection,
+          start: "top 55%",
+          end: "top 35%",
+          scrub: 1,
+        },
+      });
+    }
+  }
 });
