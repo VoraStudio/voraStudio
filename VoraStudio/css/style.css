@@ -41,6 +41,7 @@ body {
 
 /* --- ESTILOS PARA PÁGINAS INTERNAS (Sincronizado con Index) --- */
 body.page-projectes,
+body.page-serveis,
 body.page-aurex {
   --bg-opacity: 0;
   background-image: linear-gradient(rgba(255, 255, 255, var(--bg-opacity)), rgba(255, 255, 255, var(--bg-opacity))), url("../img/fons.webp");
@@ -50,6 +51,7 @@ body.page-aurex {
 }
 
 .main-projectes,
+.main-projecte,
 .main-content {
   background-color: #fff;
   position: relative;
@@ -126,7 +128,6 @@ body.page-aurex #main-header .logo-img--scrolled {
 
 .logo {
   font-size: 1.2rem;
-  margin-left: 20px;
   font-weight: 800;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -135,7 +136,7 @@ body.page-aurex #main-header .logo-img--scrolled {
 }
 
 .logo .logo-img {
-  width: 151px;
+  width: 110px;
   height: auto;
 }
 
@@ -353,17 +354,60 @@ body.page-aurex #main-header .logo-img--scrolled {
   padding-left: 5px;
 }
 
-/* BotÃ³n Contacto Derecho */
-.header__cta.desktop-only {
-  display: flex !important;
+/* Grupo derecho: logo duplicado + botón contacto */
+.header__right-group.desktop-only {
+  display: flex;
   align-items: center;
+  gap: 24px;
   z-index: 1001;
 }
 
 @media (max-width: 991px) {
-  .header__cta.desktop-only {
+  .header__right-group.desktop-only {
+    margin-left: auto;
+    margin-right: calc(7vw + 6px);
+    margin-top: -8px;
+  }
+
+  .header__right-group .logo-dup-img {
+    width: 120px;
+  }
+
+  .header__right-group .btn-cta {
     display: none !important;
   }
+}
+
+/* Logo duplicado */
+.header__logo-dup {
+  display: flex;
+  align-items: center;
+}
+
+.header__logo-dup .logo-dup-img {
+  width: 160px;
+  height: auto;
+}
+
+/* Toggle de logos duplicados en scroll */
+.logo-dup-img--scrolled {
+  display: none;
+}
+
+#main-header.scrolled .logo-dup-img--default {
+  display: none;
+}
+
+#main-header.scrolled .logo-dup-img--scrolled {
+  display: block;
+}
+
+/* BotÃ³n Contacto Derecho */
+.header__cta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 5px;
 }
 
 /* BotÃ³n CTA (EXACTO) */
@@ -569,6 +613,23 @@ body.menu-open .close-label {
   .menu-toggle {
     display: flex;
   }
+  .header__cta {
+    display: flex !important;
+    position: absolute !important;
+    right: calc(5vw + 60px) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1050;
+  }
+  .header__cta .btn-cta {
+    padding: 6px 16px !important;
+    font-size: 0.72rem !important;
+    margin-right: 0 !important;
+  }
+
+  #main-header.scrolled .logo-dup-img--scrolled {
+    width: 110px;
+  }
 }
 
 /* ==========================================================================
@@ -586,7 +647,7 @@ body.menu-open .close-label {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 120px 5vw;
+  padding: 80px 5vw;
   overflow: hidden;
   position: relative;
   background: transparent; /* Fondo transparente para ver el global */
@@ -633,12 +694,13 @@ body.menu-open .close-label {
 }
 .line-2 {
   justify-content: space-between;
+  gap: 8px;
   /* border: solid red 1px; */
 }
 /* ESTUDI */
 .hero-text {
   font-family: var(--font-main);
-  font-size: clamp(5rem, 13vw, 10rem);
+  font-size: clamp(4rem, 12vw, 10rem);
   font-weight: 800;
   color: #fff;
   line-height: 1em;
@@ -650,7 +712,7 @@ body.menu-open .close-label {
 }
 /* CREATIU */
 .hero-text.reveal-up {
-  font-size: clamp(3rem, 9vw, 8rem) !important;
+  font-size: clamp(2.8rem, 10vw, 7rem);
   white-space: nowrap; /* Mantenemos que no rompa línea */
   display: block;
   width: min-content; /* Obliga al contenedor a ajustarse a la palabra */
@@ -662,11 +724,12 @@ body.menu-open .close-label {
 }
 /* Descprició Hero */
 .hero-line-p p {
-  font-size: clamp(1rem, 1.4vw, 2rem);
+  font-size: clamp(0.9rem, 1.25vw, 1.75rem);
   font-weight: 500;
   color: #fff;
   line-height: 1.4;
   text-align: right;
+  max-width: 35vw;
   overflow: hidden;
   opacity: 0;
   /* border: solid red 2px; */
@@ -708,7 +771,7 @@ body.menu-open .close-label {
 .vorastudio-text,
 .vora-text {
   font-family: var(--font-main);
-  font-size: clamp(3rem, 5vw, 8rem);
+  font-size: clamp(3rem, 5vw, 7.5rem);
   font-weight: 800;
   color: #ffffff;
   line-height: 1;
@@ -735,7 +798,8 @@ body.menu-open .close-label {
 
 .pill-image-container {
   height: clamp(60px, 12vw, 150px);
-  width: clamp(250px, 35vw, 600px);
+  width: clamp(250px, 44vw, 650px);
+  margin-bottom: 16px;
   background: #ccc;
   border-radius: 1000px;
   overflow: hidden;
@@ -751,7 +815,7 @@ body.menu-open .close-label {
   object-fit: cover;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .hero-logo-white {
     width: 15vw;
   }
@@ -775,6 +839,8 @@ body.menu-open .close-label {
 
   .hero-line-p p {
     text-align: center;
+    width: 100%;
+    max-width: 70% !important;
   }
 
   .hero-description {
@@ -786,15 +852,8 @@ body.menu-open .close-label {
   .hero-description p {
     font-size: 1.2rem;
   }
-  .hero-text.reveal-up {
-    font-size: 15vw !important;
-  }
-
   .hero-text {
     text-align: center !important;
-    /* El clamp actual ya escala bien, pero si lo ves enorme en mÃ³vil, 
-       puedes forzar un tamaÃ±o un poco mÃ¡s pequeÃ±o aquÃ­, por ejemplo:
-       font-size: clamp(3rem, 12vw, 5rem); */
   }
 
   .hero-text-block,
@@ -938,7 +997,7 @@ body.menu-open .close-label {
 /* ==========================================================================
    ADAPTACIÓN MÓVIL (ESTRATEGIA)
    ========================================================================== */
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .strategy-section {
     padding: 80px 0px;
     min-height: auto;
@@ -962,11 +1021,12 @@ body.menu-open .close-label {
 
   .strategy-body {
     width: 100%;
-    padding: 2rem 1rem;
+    padding: 2rem 0rem;
     text-align: center;
     justify-content: center;
     margin-top: -7rem;
     margin-bottom: 1rem;
+    line-height: 2.5 !important;
   }
 
   .strategy-body p {
@@ -1085,6 +1145,7 @@ body.menu-open .close-label {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.65;
   transform: scale(1.4); /* Empezamos con un zoom para luego alejar */
 }
 
@@ -1108,16 +1169,28 @@ body.menu-open .close-label {
 
 #preloader {
   position: fixed;
+  inset: 0;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background: #000;
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
 
-@media (max-width: 800px) {
+#preloader .carousel-spinner__logo {
+  width: 70px;
+}
+
+#preloader .carousel-spinner__text {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 991px) {
   .mask-title {
     font-size: 15vw;
   }
@@ -1390,7 +1463,7 @@ body.menu-open .close-label {
   margin-top: 5px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .services-section {
     display: flex;
     flex-direction: column;
@@ -1552,13 +1625,12 @@ body.menu-open .close-label {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 80px;
   overflow: hidden;
 }
 
 .divergent-grid__header {
-  padding: 5vh 5vw;
-  text-align: center; /* Título centrado Pach */
+  padding: 2vh 5vw;
+  text-align: center;
 }
 
 .divergent-grid__title {
@@ -1610,6 +1682,7 @@ body.menu-open .close-label {
 }
 
 .divergent-grid__item {
+  display: block;
   width: clamp(280px, 30vw, 400px);
   height: clamp(300px, 40vh, 550px);
   border-radius: 20px;
@@ -1617,6 +1690,28 @@ body.menu-open .close-label {
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.project-gallery__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.project-gallery__item {
+  flex: 1 1 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-height: 900px;
+}
+
+@media (min-width: 1024px) {
+  .project-gallery__item {
+    flex: 1 1 calc(33.333% - 14px); /* Tres columnas en escritorio; si sobran ítems, se reparten el 100% */
+  }
 }
 
 .divergent-grid__item img {
@@ -1951,6 +2046,155 @@ body.menu-open .close-label {
   margin: 0 auto;
 }
 
+/* SECCIÓN VORASTUDIO + VORADATA (voraData Design) */
+.vorastudio {
+  padding: var(--spacing-xl, 120px) var(--spacing-md, 5vw);
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  z-index: 20;
+}
+
+.vorastudio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vorastudio-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.vorastudio-content {
+  max-width: 100%;
+}
+
+.vorastudio-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vorastudio-logo-img {
+  width: clamp(280px, 32vw, 520px);
+  height: auto;
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+}
+
+.studio-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.4rem 1rem;
+  background: rgba(233, 133, 37, 0.15);
+  border: 1px solid #e98525;
+  color: #e98525;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  animation: pulse-studio 3s infinite;
+  font-family: "Fira Code", "Courier New", monospace;
+}
+
+@keyframes pulse-studio {
+  0% {
+    box-shadow: 0 0 0 0 rgba(233, 133, 37, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(233, 133, 37, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(233, 133, 37, 0);
+  }
+}
+
+.vorastudio .section-title.left {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(2.2rem, 3.8vw, 4rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.vorastudio .section-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.vorastudio .services-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.vorastudio .service-item {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.vorastudio .service-item .accent {
+  color: #e98525;
+  font-weight: 700;
+}
+
+.vorastudio .btn-outline {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #e98525;
+  color: #e98525;
+  font-size: 0.9rem;
+  background: transparent;
+  text-decoration: none;
+}
+
+.vorastudio .btn-outline:hover {
+  background: rgba(244, 142, 36, 0.1);
+  box-shadow: 0 0 15px rgba(244, 142, 36, 0.3);
+}
+
+@media (max-width: 768px) {
+  .vorastudio {
+    padding: 80px 5vw;
+  }
+  .vorastudio-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .vorastudio .section-title.left {
+    text-align: left;
+  }
+  .vorastudio .services-list-grid {
+    grid-template-columns: 1fr;
+  }
+  .vorastudio-logo-wrapper {
+    order: -1;
+  }
+  .vorastudio-logo-img {
+    width: clamp(140px, 30vw, 200px);
+  }
+}
+
 /* MARQUESINA DE LOGOS */
 .logos-marquee {
   background-color: #f1f1f1;
@@ -2031,6 +2275,7 @@ body.menu-open .close-label {
     gap: 15px;
     padding: 5px 0;
     text-align: center;
+    max-height: none !important;
   }
 
   .logos-marquee__content img {
@@ -2538,19 +2783,6 @@ select.form-field__input option {
 }
 
 @media (max-width: 768px) {
-  .divergent-grid__wrapper {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  .divergent-grid__item {
-    flex: 0 0 100vw;
-    scroll-snap-align: start;
-  }
-  .divergent-grid__row--bottom {
-    display: none;
-  }
   .form-row {
     flex-direction: column;
     gap: 40px;
@@ -2673,7 +2905,7 @@ select.form-field__input option {
   padding: 2rem;
   padding-top: 4rem;
 }
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .aurex-hero__right {
     padding-top: 0;
   }
@@ -2919,7 +3151,210 @@ select.form-field__input option {
   transform: scale(1.05);
 }
 
-/* --- NUEVA GALERÍA DE PROYECTOS (FLEX ACCORDION) --- */
+/* --- PROJECT DETAIL TEMPLATE (dynamic from JSON) --- */
+.project-hero {
+  min-height: 50vh;
+  padding: 180px 5vw 7rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+}
+
+.project-hero__container {
+  max-width: 1400px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .project-hero__container {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: flex-start;
+  }
+}
+
+.project-hero__left {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-hero__left img {
+  width: 100%;
+  height: auto;
+}
+
+.project-hero__left a {
+  padding-left: 2.5rem;
+}
+
+.project-hero__right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 2rem;
+  padding-top: 4rem;
+}
+
+@media (max-width: 991px) {
+  .project-hero__right {
+    padding-top: 0;
+  }
+}
+
+.project-hero__link {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  color: #999;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  display: inline-block;
+}
+
+.project-hero__link span {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.project-hero__description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+  max-width: 600px;
+  margin: 0;
+}
+
+.project-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.project-hero__tag {
+  padding: 10px 25px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+/* --- PROJECT STRATEGY --- */
+.project-strategy {
+  padding: 20px 5vw 100px;
+  background-color: #fff;
+}
+
+.project-strategy__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding-left: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .project-strategy__container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+  }
+}
+
+.project-strategy__block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.project-strategy__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-strategy__dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.project-strategy__label {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.project-strategy__text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #999;
+}
+
+/* --- PROJECT GALLERY (auto-fill grid) --- */
+.project-gallery {
+  padding: 0 5vw 120px;
+  background-color: #fff;
+  width: 100vw;
+}
+
+.project-gallery__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.project-gallery__item {
+  flex: 1 1 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-height: 900px;
+}
+
+@media (min-width: 1024px) {
+  .project-gallery__item {
+    flex: 1 1 calc(33.333% - 14px); /* Tres columnas en escritorio; si sobran ítems, se reparten el 100% */
+  }
+  .project-gallery__item:first-child {
+    flex: 1 1 100%;
+  }
+}
+
+.project-gallery__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-gallery__item:hover .project-gallery__img {
+  transform: scale(1.05);
+}
+
+/* --- NUEVA GALERÍA DE PROJECTES (FLEX ACCORDION) --- */
 .portfolio-grid {
   display: flex;
   gap: 15px;
@@ -3127,5 +3562,521 @@ select.form-field__input option {
   .whatsapp-float svg {
     width: 28px;
     height: 28px;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTE: Galería Horizontal (Projectes)
+   ========================================================================== */
+
+body.page-projectes-gallery {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-image: none !important;
+  color: #1a1a1a;
+}
+
+.page-projectes-gallery .main-projectes {
+  background-color: #fff;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 20vh;
+}
+
+.projectes-scroll-spacer {
+  width: 100%;
+  pointer-events: none;
+}
+
+/* --- TRACK HORIZONTAL --- */
+.projectes-scroll {
+  width: 100%;
+  height: 78vh; /* Aumentado para dar espacio a la j descendente sin subir el texto */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectes-scroll__title {
+  position: absolute;
+  top: 45vh;
+  left: 0;
+  right: 0;
+  font-family: var(--font-title);
+  font-size: clamp(4rem, 18vw, 14rem);
+  font-weight: 400;
+  color: #000;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  padding: 0 5vw 0 10vw;
+  margin-top: 5vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Título del carrusel en página de detalle de proyecto */
+.projectes-scroll__heading {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin: 0 5vw 2.5rem 11vw;
+  padding-top: 1rem;
+}
+
+.gallery-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 5vw;
+  font-family: var(--font-main);
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  color: rgba(26, 26, 26, 0.5);
+  text-align: center;
+  z-index: 50;
+  background: #fff;
+  pointer-events: none;
+}
+
+.projectes-scroll__track {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  padding: 0 5vw;
+  gap: 24px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 15;
+}
+
+.projectes-scroll__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- CARD WRAPPER (info above + card below) --- */
+.projecte-card-wrap {
+  flex: 0 0 auto;
+  width: clamp(200px, 25vw, 340px);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: flex-start;
+}
+
+.projectes-scroll__track .projecte-card-wrap:first-child {
+  margin-left: 5vw; /* Para que quede alineado con el resto del contenido y el header */
+}
+
+.projecte-card__info {
+  padding-bottom: 16px;
+}
+
+.projecte-card__title {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.projecte-card__subtitle {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.9vw, 1.4rem);
+  font-weight: 400;
+  color: rgba(26, 26, 26, 0.65);
+  line-height: 1.4;
+}
+
+/* --- CARDS --- */
+.projecte-card {
+  width: 100%;
+  height: 40vh;
+  position: relative;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  will-change: height;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.projecte-card:hover {
+  height: 60vh;
+  position: relative;
+  z-index: 15;
+}
+
+.projecte-card__label {
+  font-family: var(--font-main);
+  font-size: clamp(0.85rem, 1.4vw, 1.125rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 16px 16px 8px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #fff;
+  border-radius: 24px 24px 0 0;
+}
+
+.projecte-card img {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: block;
+}
+
+.projecte-card:hover img {
+  transform: scale(1.04);
+  position: relative;
+  z-index: 15;
+}
+
+.projecte-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  color: #fff;
+  transform: translateY(10px);
+  opacity: 0.8;
+  transition: all 0.4s ease;
+}
+
+.projecte-card:hover .projecte-card__overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.projecte-card__number {
+  font-family: var(--font-main);
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  color: var(--color-accent);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.projecte-card__text {
+  font-family: var(--font-main);
+  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+
+/* --- RESPONSIVE --- */
+/* --- TÍTULO GRANDE FINAL --- */
+.projectes-footer-title {
+  padding: 3vh 5vw 15vh;
+  text-align: left;
+}
+
+.projectes-footer-title__text {
+  font-family: var(--font-title);
+  font-size: clamp(4rem, 18vw, 14rem);
+  font-weight: 400;
+  color: #000;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+/* --- SPINNER CARRUSEL --- */
+.carousel-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40vh;
+  gap: 20px;
+}
+
+.carousel-spinner__logo {
+  width: 50px;
+  height: auto;
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.carousel-spinner__text {
+  font-family: var(--font-main);
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  color: rgba(26, 26, 26, 0.45);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.carousel-spinner--error .carousel-spinner__logo {
+  animation: none;
+  opacity: 0.4;
+}
+
+.carousel-spinner--error .carousel-spinner__text {
+  color: var(--color-accent2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: Galeria Horitzontal (max-width: 768px)
+
+/* --- FLECHES DEL CARRUSEL (ocultas por defecto, visibles solo móvil) --- */
+.carousel-arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #1a1a1a;
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.carousel-arrow--left {
+  left: 8px;
+}
+.carousel-arrow--right {
+  right: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: Galeria Horitzontal (max-width: 1023px)
+   ═══════════════════════════════════════════════════════════════
+   Regla #17 — una sola @media per classe. Totes les propietats
+   responsive de cada selector agrupades aquí. */
+
+@media (max-width: 1023px) {
+  .projectes-footer-title {
+    padding: 6vh 5vw 8vh;
+  }
+
+  .projectes-footer-title__text {
+    font-size: clamp(2.5rem, 15vw, 5rem);
+  }
+
+  .projectes-scroll {
+    height: 85vh;
+  }
+
+  .projectes-scroll__track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 7vw;
+    gap: 16px;
+  }
+
+  .projectes-scroll__title {
+    top: 62vh;
+    font-size: clamp(3.5rem, 15vw, 6rem);
+    margin-top: 0;
+  }
+
+  .projecte-card-wrap {
+    width: clamp(260px, 75vw, 360px);
+    scroll-snap-align: center;
+  }
+
+  .projecte-card {
+    height: 45vh;
+  }
+
+  .projecte-card:hover {
+    height: 45vh;
+  }
+
+  .projecte-card__overlay {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 20px;
+  }
+
+  .carousel-arrow {
+    display: flex;
+    width: 48px;
+    height: 48px;
+  }
+
+  .carousel-arrow--left {
+    left: 16px;
+  }
+
+  .carousel-arrow--right {
+    right: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: Galeria Horitzontal (min-width: 1024px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+  .projectes-scroll__track {
+    padding: 0 8vw;
+    gap: 32px;
+  }
+
+  .projecte-card-wrap {
+    width: clamp(260px, 22vw, 380px);
+  }
+}
+
+/* ==========================================================================
+   ESTILS PER LA PLANTILLA DINÀMICA DE PROJECTE (FONDO BLANCO, FORMULARIO NARANJA)
+   ========================================================================== */
+
+/* Fondo blanco general para el body en la plantilla de proyectos */
+body.page-projecte {
+  background-color: #fff !important;
+  background-image: none !important;
+  color: #1a1a1a !important;
+}
+
+/* El header sub-header es blanco */
+body.page-projecte #sub-header {
+  background-color: #fff !important;
+}
+
+/* El main es blanco */
+body.page-projecte .main-projecte {
+  background-color: #fff !important;
+}
+
+/* La galería principal de fotos del proyecto no tiene padding-bottom en esta plantilla */
+body.page-projecte .project-gallery {
+  padding-bottom: 0 !important;
+}
+
+/* La galería horizontal de proyectos tiene texto oscuro para encajar con el fondo blanco y margen de 5vh */
+body.page-projecte .projectes-scroll {
+  background-color: #fff !important;
+  margin-top: 5vh;
+}
+
+body.page-projecte .projectes-scroll__title,
+body.page-projecte .projectes-footer-title__text {
+  color: #1a1a1a !important;
+}
+
+/* Solo la sección del formulario de contacto mantiene el fondo naranja (fons.webp) */
+body.page-projecte #contact.contact-section {
+  background-image: url("../img/fons.webp") !important;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: transparent !important;
+  color: #fff !important;
+  padding-top: 5vh !important;
+  margin-top: 10vh !important;
+}
+
+/* Forzar que el texto y las etiquetas dentro del formulario en esta página sean blancas */
+body.page-projecte #contact.contact-section .contact__info-title,
+body.page-projecte #contact.contact-section .contact__info-subtitle,
+body.page-projecte #contact.contact-section .contact__info-email,
+body.page-projecte #contact.contact-section .form-field__label,
+body.page-projecte #contact.contact-section .form-checkbox__label,
+body.page-projecte #contact.contact-section .form-checkbox__label a {
+  color: #fff !important;
+}
+
+/* El pie de página vuelve a tener fondo blanco */
+body.page-projecte #main-footer.footer-section {
+  background-color: #fff !important;
+  color: #1a1a1a !important;
+  padding: 40px 0;
+  border-top: 1px solid #eaeaea;
+}
+
+/* ==========================================================================
+   REGLES ESPECÍFIQUES PER A MÒBIL EN DETALL DE PROJECTE
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Reducir el espaciado superior/inferior y quitar el min-height del Hero en móvil */
+  body.page-projecte .project-hero {
+    min-height: auto !important;
+    padding-top: 100px !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Reducir el espaciado de Briefing en móvil */
+  body.page-projecte .project-strategy {
+    padding-top: 10px !important;
+    padding-bottom: 40px !important;
+  }
+}
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA EL SUB-HEADER (PÁGINAS DE FONDO BLANCO)
+   ========================================================================== */
+#sub-header .menu-toggle .line {
+  background-color: #000 !important;
+}
+
+#sub-header .btn-cta {
+  padding: 6px 18px !important;
+  font-size: 0.75rem !important;
+  background-color: #f5a04e !important;
+  color: #fff !important;
+  border: 2px solid #f5a04e !important;
+}
+
+#sub-header .btn-cta:hover {
+  background-color: transparent !important;
+  color: #f5a04e !important;
+  border: 2px solid #f5a04e !important;
+  padding-right: 18px !important;
+}
+
+#sub-header .btn-cta::after {
+  display: none !important;
+}
+
+/* Mòbil: controla mida del logo voraData */
+@media (max-width: 991px) {
+  .header__logo-dup .logo-dup-img,
+  .logo-dup-img--default .logo-dup-img--scrolled {
+    width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-line-p p {
+    max-width: 100% !important; /* o el valor que vulguis */
   }
 }
