@@ -9,10 +9,13 @@ console.warn = function (msg) {
   _origWarn.apply(console, arguments);
 };
 
-try {
-  gsap.registerPlugin(ScrollTrigger, TextPlugin, SplitText);
-} catch (e) {
-  gsap.registerPlugin(ScrollTrigger, TextPlugin); // Fallback segur
+const pluginsToRegister = [];
+if (typeof ScrollTrigger !== 'undefined') pluginsToRegister.push(ScrollTrigger);
+if (typeof TextPlugin !== 'undefined') pluginsToRegister.push(TextPlugin);
+if (typeof SplitText !== 'undefined') pluginsToRegister.push(SplitText);
+
+if (pluginsToRegister.length > 0) {
+  gsap.registerPlugin(...pluginsToRegister);
 }
 const lenis = new Lenis();
 lenis.on("scroll", ScrollTrigger.update);
@@ -27,7 +30,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const logoMobil = innerWidth < 800;
 
   // --- Sets de Gsap para definiciones Iniciales ---
-  gsap.set(".hero-logo-white", { autoAlpha: 0, xPercent: logoMobil ? 0 : -300 });
+  if (document.getElementById("hero")) {
+    gsap.set(".hero-logo-white", { autoAlpha: 0, xPercent: logoMobil ? 0 : -300 });
+  }
 
   /*==========================================================================
                     SECCIÓN: SPINNER DEL INICIO
@@ -99,7 +104,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    if (isProjectesPage) {
+    if (isProjectesPage && document.querySelector(".portfolio-hero__title")) {
       const tlPortfolio = gsap.timeline({ defaults: { duration: 1.2, ease: "power4.out" } });
       tlPortfolio.to(".portfolio-hero__title", { autoAlpha: 1, y: 0, delay: 0.5 }).to(".portfolio-hero__subtitle", { autoAlpha: 1, y: 0 }, "-=0.8");
     }
@@ -115,26 +120,24 @@ window.addEventListener("DOMContentLoaded", () => {
        Descripción: Cambia el color del logo y enlaces al salir del bloque blanco.
        ========================================================================== */
     const isInternalPage = !document.getElementById("hero");
+    const internalHero = document.querySelector(".portfolio-hero, .aurex-hero");
 
-    if (isInternalPage) {
-      // 1. Transición de Fondo (Imagen -> Blanco)
+    if (isInternalPage && internalHero) {
       gsap.to("body", {
         "--bg-opacity": 1,
         ease: "none",
         scrollTrigger: {
-          trigger: ".portfolio-hero",
+          trigger: internalHero,
           start: "bottom center",
           end: "bottom top",
           scrub: true,
         },
       });
 
-      // 2. Transición de Color de Texto y Header
-      // Animamos el color del body (texto) para que pase de blanco a negro
       gsap.to("body", {
         color: "#1a1a1a",
         scrollTrigger: {
-          trigger: ".portfolio-hero, .aurex-hero",
+          trigger: internalHero,
           start: "bottom center",
           end: "bottom top",
           scrub: true,
@@ -205,512 +208,242 @@ window.addEventListener("DOMContentLoaded", () => {
     });
     //#endregion HEADER
     /* ==========================================================================
-       SECCIÓN: HERO
+       SECCIÓN: HERO (només a la pàgina d'inici)
        ========================================================================== */
-    const tlHero = gsap.timeline({ defaults: { duration: 1.5, ease: "power4.out" } });
-    tlHero
-      //Entrada de "ESTUDI"
-      .fromTo(".hero-line-p .hero-text", { scale: 0.8, autoAlpha: 0, xPercent: -100 }, { scale: 1, autoAlpha: 1, xPercent: 0 }, 0.2)
-      //Entrada de "CREATIU"
-      .fromTo(".hero-text-block .hero-text", { x: 100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, 0.8)
-      //Entrada de "VORA STUDIO"
-      .fromTo(".vora-text", { autoAlpha: 0, xPercent: -100 }, { autoAlpha: 1, xPercent: 0 }, 1.2)
-      //Entrada de "Som un estudi de comunicació i disseny"
-      .fromTo(".hero-line-p p", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1 }, 1.6)
-      //Entrada de la imatge
-      .fromTo(".pill-image-container", { xPercent: -20, autoAlpha: 0, rotate: -3 }, { xPercent: 0, autoAlpha: 1, rotate: 0 }, 2.2)
-      // --- ANIMACIÓN INFINITA DEL LOGO (Aparicion) ---
-      .fromTo(
-        ".hero-logo-white",
-        { autoAlpha: 0, xPercent: logoMobil ? 0 : -300, yPercent: logoMobil ? 0 : 70 },
-        { autoAlpha: 1, duration: 1.5 },
-        2.2,
-      )
-      // Fase de Salida (Scroll Trigger) - Rotando hacia la derecha fuera de la pantalla
-      .to(".hero-logo-white", {
-        x: 1200,
-        rotate: 360,
-        duration: logoMobil ? 1 : 5,
-        ease: "power1.in",
-        scrollTrigger: {
-          trigger: "#hero",
-          start: "top top", // Comienza el movimiento al empezar a scrollear
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
+    const isHomePage = !!document.getElementById("hero");
+    if (isHomePage) {
+      const tlHero = gsap.timeline({ defaults: { duration: 1.5, ease: "power4.out" } });
+      tlHero
+        .fromTo(".hero-line-p .hero-text", { scale: 0.8, autoAlpha: 0, xPercent: -100 }, { scale: 1, autoAlpha: 1, xPercent: 0 }, 0.2)
+        .fromTo(".hero-text-block .hero-text", { x: 100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, 0.8)
+        .fromTo(".vora-text", { autoAlpha: 0, xPercent: -100 }, { autoAlpha: 1, xPercent: 0 }, 1.2)
+        .fromTo(".hero-line-p p", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1 }, 1.6)
+        .fromTo(".pill-image-container", { xPercent: -20, autoAlpha: 0, rotate: -3 }, { xPercent: 0, autoAlpha: 1, rotate: 0 }, 2.2)
+        .fromTo(
+          ".hero-logo-white",
+          { autoAlpha: 0, xPercent: logoMobil ? 0 : -300, yPercent: logoMobil ? 0 : 70 },
+          { autoAlpha: 1, duration: 1.5 },
+          2.2,
+        )
+        .to(".hero-logo-white", {
+          x: 1200,
+          rotate: 360,
+          duration: logoMobil ? 1 : 5,
+          ease: "power1.in",
+          scrollTrigger: {
+            trigger: "#hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+    }
     //#endregion HERO
 
     //#region STRATEGY & PARALLAX
     /*==========================================================================
-                  SECCIÓN: STRATEGY INTRO & PARALLAX
+                  SECCIÓ: STRATEGY INTRO & PARALLAX
     ========================================================================== */
-    const splitBody = new SplitText(".strategy-body p", { type: "words" });
-    const splitTitle = new SplitText(".strategy-title", { type: "lines, words" });
-    gsap.set(splitTitle.lines, { overflow: "hidden" });
-    gsap.set(splitBody.words, { opacity: 0.1 });
-    gsap.set(".btn-white-strategy", { opacity: 0 });
-    //Descripción ->
-    const tlStrategyText = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".strategy-section",
-        start: window.innerWidth < 800 ? "top 95%" : "top 45%", // Comença quan la secció entra un 25% a la pantalla
-        end: "center 60%", // Acaba quan la secció està més amunt
-        scrub: 0.8, // L'animació segueix el scroll (el 0.5 li dóna suavitat)
-      },
-    });
+    const hasStrategy = !!document.querySelector(".strategy-section");
+    let splitBody, splitTitle;
+    if (hasStrategy && typeof SplitText !== 'undefined') {
+      splitBody = new SplitText(".strategy-body p", { type: "words" });
+      splitTitle = new SplitText(".strategy-title", { type: "lines, words" });
+      gsap.set(splitTitle.lines, { overflow: "hidden" });
+      gsap.set(splitBody.words, { opacity: 0.1 });
+      gsap.set(".btn-white-strategy", { opacity: 0 });
 
-    //Titulo ->
-    gsap.from(splitTitle.words, {
-      opacity: 0,
-      stagger: 2,
-      yPercent: 100,
-      duration: 2.5,
-      scrollTrigger: {
-        trigger: ".strategy-section",
-        start: "top 70%", // Comença quan el títol entra per baix
-        end: "top 20%", // Acaba a mitja pantalla
-        scrub: 0.5, // Més responsiu que el títol
-      },
-    });
-    //Entra la descripción ->
-    tlStrategyText
-      .to(
-        splitBody.words,
-        {
-          opacity: 1, // Recupera l'opacitat total
-          stagger: 1, // Les paraules s'encenen una rere l'altra
-          ease: "none", // "none" és millor per a efectes de scrub
+      const tlStrategyText = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".strategy-section",
+          start: window.innerWidth < 800 ? "top 95%" : "top 45%",
+          end: "center 60%",
+          scrub: 0.8,
         },
-        "-=0.5",
-      )
-      //Entra el botón ->
-      .to(
-        ".btn-white-strategy",
-        {
-          opacity: 1,
-          duration: 2,
-          ease: "power2.out",
-          delay: 1.5,
+      });
+
+      gsap.from(splitTitle.words, {
+        opacity: 0,
+        stagger: 2,
+        yPercent: 100,
+        duration: 2.5,
+        scrollTrigger: {
+          trigger: ".strategy-section",
+          start: "top 70%",
+          end: "top 20%",
+          scrub: 0.5,
         },
-        ">-1",
-      );
-    /*-==========================================================================
-                           PARALLAX CAJAS
-    ========================================================================== */
+      });
+
+      tlStrategyText
+        .to(splitBody.words, { opacity: 1, stagger: 1, ease: "none" }, "-=0.5")
+        .to(".btn-white-strategy", { opacity: 1, duration: 2, ease: "power2.out", delay: 1.5 }, ">-1");
+    }
+
+    // ==========================================================================
+    // ANIMACIONES DEL INDEX (només a la pàgina d'inici)
+    // ==========================================================================
+    if (isHomePage) {
 
     // --- CAJA 1 ---
-    // 1. Establecemos la posición inicial y ocultamos
     gsap.set(".p-box-1", { x: "100vw", xPercent: -100, y: "30vh", autoAlpha: 0 });
 
-    // 2. Animación de aparición (Aparece donde ya está "setead")
     gsap.to(".p-box-1", {
-      autoAlpha: 1,
-      duration: 2,
-      ease: "expo.out",
-      scrollTrigger: {
-        trigger: ".strategy-section",
-        start: "top bottom",
-        toggleActions: "play none none none",
-      },
+      autoAlpha: 1, duration: 2, ease: "expo.out",
+      scrollTrigger: { trigger: ".strategy-section", start: "top bottom", toggleActions: "play none none none" },
     });
 
     gsap.to(".p-box-1", {
-      y: "+=200",
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".strategy-section",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1,
-        immediateRender: false,
-      },
+      y: "+=200", ease: "none",
+      scrollTrigger: { trigger: ".strategy-section", start: "top bottom", end: "bottom top", scrub: 1, immediateRender: false },
     });
 
     // --- CAJA 2 ---
     gsap.set(".p-box-2", { x: "0vw", y: "70vh", autoAlpha: 0 });
     gsap.to(".p-box-2", {
-      autoAlpha: 1,
-      duration: 2,
-      ease: "expo.out",
-      scrollTrigger: {
-        trigger: ".strategy-section",
-        start: "top bottom",
-        toggleActions: "play none none none",
-      },
+      autoAlpha: 1, duration: 2, ease: "expo.out",
+      scrollTrigger: { trigger: ".strategy-section", start: "top bottom", toggleActions: "play none none none" },
     });
 
     gsap.to(".p-box-2", {
-      y: "-=250",
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".strategy-section",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.5,
-        immediateRender: false,
-      },
+      y: "-=250", ease: "none",
+      scrollTrigger: { trigger: ".strategy-section", start: "top bottom", end: "bottom top", scrub: 1.5, immediateRender: false },
     });
-    //#endregion STRATEGY INTRO & PARALLAX
 
-    //#region MASCARA
-    /* ==========================================================================
-     SECCION 03 -  Revelado por Máscara -> (Servicios)
-     ========================================================================== */
+    // MASCARA
     let media = gsap.matchMedia();
-
-    // 2. Definimos las condiciones (igual que en CSS)
     media.add(
-      {
-        isMobile: "(max-width: 991px)",
-        isDesktop: "(min-width: 992px)",
-      },
+      { isMobile: "(max-width: 991px)", isDesktop: "(min-width: 992px)" },
       (context) => {
-        // context.conditions extrae qué media query está activa en este momento
         let { isMobile } = context.conditions;
         gsap.fromTo(
-          ".mask-container",
-          { y: isMobile ? 250 : 100 },
-          {
-            y: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".strategy-section",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.5,
-              onLeave: () => gsap.set(".mask-container", { y: 0 }),
-            },
+          ".mask-container", { y: isMobile ? 250 : 100 },
+          { y: 0, ease: "none",
+            scrollTrigger: { trigger: ".strategy-section", start: "top bottom", end: "bottom top", scrub: 1.5, onLeave: () => gsap.set(".mask-container", { y: 0 }) },
           },
         );
 
-        // 2. EXPANSIÓN DE LA MÁSCARA
         const maskTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".mask-section",
-            start: "top top",
-            end: "+=150%",
-            scrub: 1, // Un poco más rápido para que no haya "lag" al llegar al 100%
-            pin: true,
-            anticipatePin: 1,
-            pinSpacing: true,
-          },
+          scrollTrigger: { trigger: ".mask-section", start: "top top", end: "+=150%", scrub: 1, pin: true, anticipatePin: 1, pinSpacing: true },
         });
 
         maskTl
-          .to(".mask-wrapper", {
-            // Usamos 100vw/vh para asegurar que ignore cualquier padding accidental
-            width: "100vw",
-            height: "100vh",
-            maxWidth: "none",
-            maxHeight: "none",
-            borderRadius: "0px",
-            y: 0, // Reseteamos cualquier y relativo a 0 absoluto
-            ease: "none",
-          })
+          .to(".mask-wrapper", { width: "100vw", height: "100vh", maxWidth: "none", maxHeight: "none", borderRadius: "0px", y: 0, ease: "none" })
           .fromTo(".mask-img", { scale: 1.4 }, { scale: 1, ease: "none" }, 0)
           .to(".mask-title", { opacity: 1, y: -20, duration: 0.5, ease: "power2.out" }, "-=0.2");
       },
     );
-    //#endregion MASCARA
 
-    //#region SERVICIOS
-    /* ==========================================================================
-     SECCCION 04: SERVICIOS
-     ========================================================================== */
-    //ENTRADA DEL TITULO
-    const splitServicios = new SplitText(".services-title2", { type: "lines" });
+    // SERVICIOS
+    const splitServicios = typeof SplitText !== 'undefined' ? new SplitText(".services-title2", { type: "lines" }) : null;
     const tlServicios = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".services-title-mask",
-        start: "top 90%",
-        toggleActions: "play none none reverse",
-      },
+      scrollTrigger: { trigger: ".services-title-mask", start: "top 90%", toggleActions: "play none none reverse" },
     });
     tlServicios
-      .from(".services-title", {
-        yPercent: 110,
-        duration: 3,
-        ease: "power4.out",
-        clearProps: "all",
-      })
-      .from(
-        splitServicios.lines,
-        {
-          autoAlpha: 0,
-          stagger: 0.5,
-          yPercent: 100,
-          duration: 1,
-          ease: "power4.out",
-        },
-        "<0.5",
-      )
-      .from(
-        ".services-desc p",
-        {
-          autoAlpha: 0,
-          duration: 0.5,
-        },
-        "<1",
-      )
-      .from(
-        ".btn-orange-strategy",
-        {
-          autoAlpha: 0,
-          duration: 0.5,
-          scale: 0.8,
-        },
-        ">",
-      );
-    // 1. STACKING CARDS (Solo en Desktop)
+      .from(".services-title", { yPercent: 110, duration: 3, ease: "power4.out", clearProps: "all" })
+      .from(splitServicios?.lines || ".services-title2", { autoAlpha: 0, stagger: 0.5, yPercent: 100, duration: 1, ease: "power4.out" }, "<0.5")
+      .from(".services-desc p", { autoAlpha: 0, duration: 0.5 }, "<1")
+      .from(".btn-orange-strategy", { autoAlpha: 0, duration: 0.5, scale: 0.8 }, ">");
+
+    // STACKING CARDS
     const mm = gsap.matchMedia();
     mm.add("(min-width: 992px)", () => {
       const cards = gsap.utils.toArray(".service-card");
       cards.forEach((card, i) => {
         gsap.to(card, {
           scrollTrigger: {
-            trigger: card,
-            start: () => `top ${2 + i * 2}%`,
-            endTrigger: ".services-stack",
-            //Evitem el stacking flow de les tarjes asegurant 1 scroll enter de paginació per tarja
-            end: () => `+=${window.innerHeight * 6}`,
-            pin: true,
-            pinSpacing: false,
-            scrub: true,
-            invalidateOnRefresh: true,
-            onEnter: () => {
-              // Card completada
-            },
+            trigger: card, start: () => `top ${2 + i * 2}%`, endTrigger: ".services-stack",
+            end: () => `+=${window.innerHeight * 6}`, pin: true, pinSpacing: false, scrub: true, invalidateOnRefresh: true,
           },
         });
       });
       gsap.to(".service-card", {
         autoAlpha: 0,
-        scrollTrigger: {
-          trigger: ".divergent-grid", // Cuando entras en la siguiente sección (proyectos)
-          start: "top center",
-          toggleActions: "play none none reverse",
-        },
+        scrollTrigger: { trigger: ".divergent-grid", start: "top center", toggleActions: "play none none reverse" },
       });
 
-      //Fin de las cards
-      //#endregion SERVICIOS
-
-      //#region PROYECTOS
-      /*==========================================================================
-      SECCION 05 -> PROYECTOS
-     ========================================================================== */
+      // PROYECTOS
       const divergentTitle = document.querySelector(".divergent-grid__title");
       if (divergentTitle) {
-        const originalHTML = divergentTitle.innerHTML;
-        divergentTitle.innerHTML = `<span class="mask-inner">${originalHTML}</span>`;
-
+        divergentTitle.innerHTML = `<span class="mask-inner">${divergentTitle.innerHTML}</span>`;
         gsap.from(".divergent-grid__title .mask-inner", {
-          scrollTrigger: {
-            trigger: ".divergent-grid__title",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          yPercent: 100,
-          duration: 1.5,
-          ease: "power4.out",
+          scrollTrigger: { trigger: ".divergent-grid__title", start: "top 85%", toggleActions: "play none none reverse" },
+          yPercent: 100, duration: 1.5, ease: "power4.out",
         });
       }
-      // 2. PARRILLA DIVERGENTE (Scroll Largo)
       const tlDivergent = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".divergent-grid",
-          start: "center 35%",
-          end: "+=200%",
-          pin: true,
-          scrub: 1.2,
-          onUpdate: (self) => {
-            gsap.to(logoSpin, { timeScale: self.direction, duration: 0.5 });
-          },
-          onToggle: (self) => {
-            // Lógica del LOGO
-            if (self.isActive) logoSpin.play();
-            else logoSpin.pause();
-          },
+        scrollTrigger: { trigger: ".divergent-grid", start: "center 35%", end: "+=200%", pin: true, scrub: 1.2,
+          onUpdate: (self) => { gsap.to(logoSpin, { timeScale: self.direction, duration: 0.5 }); },
+          onToggle: (self) => { self.isActive ? logoSpin.play() : logoSpin.pause(); },
         },
       });
       tlDivergent
         .to(".divergent-grid__row--top", { xPercent: -40, ease: "none" }, 0)
         .fromTo(".divergent-grid__row--bottom", { xPercent: -40 }, { xPercent: 0, ease: "none" }, 0);
     });
-    const logoSpin = gsap.to(".gallery-badge-img", {
-      rotation: 360,
-      duration: 15,
-      repeat: -1,
-      ease: "none",
-      paused: true,
-      transformOrigin: "50% 50%",
-    });
-    // ----- GALERIA PER MOBILS -----
+
+    const logoSpin = gsap.to(".gallery-badge-img", { rotation: 360, duration: 15, repeat: -1, ease: "none", paused: true, transformOrigin: "50% 50%" });
+
+    // GALERIA MOBIL
     mm.add("(max-width: 991px)", () => {
       const nextBtn = document.getElementById("gallery-next");
       const prevBtn = document.getElementById("gallery-prev");
       const rowTop = document.querySelector(".divergent-grid__row--top");
-
       if (nextBtn && prevBtn && rowTop) {
-        const items = Array.from(rowTop.querySelectorAll(".divergent-grid__item")); //Creem el array de les imatges
-        let currentIndex = 0;
-        let isAnimating = false;
-
+        const items = Array.from(rowTop.querySelectorAll(".divergent-grid__item"));
+        let currentIndex = 0, isAnimating = false;
         const goTo = (newIndex, direction) => {
-          // Funció de seguretat per avançar correctament
           if (isAnimating || newIndex === currentIndex) return;
           isAnimating = true;
-
-          const current = items[currentIndex]; //Imatge actual
-          const next = items[newIndex]; //Imatge següent
-
-          const inClass = direction === "next" ? "slide-in-right" : "slide-in-left"; //Direcció de l'animació
-          const outClass = direction === "next" ? "slide-out-left" : "slide-out-right"; //Direcció de l'animació
-
-          // Anima la sortida de l'actual
-          current.classList.add(outClass);
-
-          // Anima l'entrada de la nova
-          next.classList.add(inClass);
-
+          items[currentIndex].classList.add(direction === "next" ? "slide-out-left" : "slide-out-right");
+          items[newIndex].classList.add(direction === "next" ? "slide-in-right" : "slide-in-left");
           setTimeout(() => {
-            current.classList.remove("active", outClass);
-            next.classList.remove(inClass);
-            next.classList.add("active");
+            items[currentIndex].classList.remove("active", direction === "next" ? "slide-out-left" : "slide-out-right");
+            items[newIndex].classList.remove(direction === "next" ? "slide-in-right" : "slide-in-left");
+            items[newIndex].classList.add("active");
             currentIndex = newIndex;
             isAnimating = false;
           }, 450);
         };
-
-        // Mostra la primera imatge sense animació
         items[0].classList.add("active");
-
-        nextBtn.addEventListener("click", () => {
-          const newIndex = (currentIndex + 1) % items.length;
-          goTo(newIndex, "next");
-        });
-
-        prevBtn.addEventListener("click", () => {
-          const newIndex = (currentIndex - 1 + items.length) % items.length;
-          goTo(newIndex, "prev");
-        });
+        nextBtn.addEventListener("click", () => goTo((currentIndex + 1) % items.length, "next"));
+        prevBtn.addEventListener("click", () => goTo((currentIndex - 1 + items.length) % items.length, "prev"));
       }
     });
 
-    /* ==========================================================================
-     ANIMACIÓN: 02. Revelado por Máscara (Proyectos)
-     Descripción: Revelado ascendente a través de un contenedor overflow:hidden.
-     ========================================================================== */
-
-    /* ==========================================================================
-     SECCIÓN: PRICING ANIMATION
-     Descripción: Entrada premium escalonada de packs y sus detalles.
-     ========================================================================== */
+    // PRICING
     const pricingTitle = document.querySelector(".pricing__title");
     if (pricingTitle) {
-      const originalHTML = pricingTitle.innerHTML;
-      pricingTitle.innerHTML = `<span class="mask-inner">${originalHTML}</span>`;
-
+      pricingTitle.innerHTML = `<span class="mask-inner">${pricingTitle.innerHTML}</span>`;
       gsap.from(".pricing__title .mask-inner", {
-        scrollTrigger: {
-          trigger: ".pricing__title",
-          start: "top 90%",
-          toggleActions: "play none none reverse",
-        },
-        yPercent: 100,
-        duration: 1.2,
-        ease: "power4.out",
+        scrollTrigger: { trigger: ".pricing__title", start: "top 90%", toggleActions: "play none none reverse" },
+        yPercent: 100, duration: 1.2, ease: "power4.out",
       });
     }
 
-    const tlPricing = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".pricing-section",
-        start: "top 70%",
-        toggleActions: "play none none reverse",
-      },
-    });
+    const tlPricing = gsap.timeline({ scrollTrigger: { trigger: ".pricing-section", start: "top 70%", toggleActions: "play none none reverse" } });
+    tlPricing.from(".pricing-card", { y: 80, opacity: 0, duration: 1.2, stagger: 0.15, ease: "expo.out", clearProps: "all" }, 0.2);
 
-    tlPricing.from(
-      ".pricing-card",
-      {
-        y: 80,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "expo.out",
-        clearProps: "all",
-      },
-      0.2, // Empieza un poco después del título
-    );
-    /* ==========================================================================
-     FIN ANIMACIÓN: 02. Revelado por Máscara
-     ========================================================================== */
-    /* ==========================================================================
-     TRANSICIÓN DE FONDO GLOBAL
-     ========================================================================== */
-    // Al llegar a la sección de servicios, tapamos la imagen con un gradiente blanco de forma suave
+    // BG TRANSITION
     gsap.to("body", {
       "--bg-opacity": 1,
-      scrollTrigger: {
-        trigger: ".services-section",
-        start: "top 75%", // Empieza un poco antes de ver las tarjetas
-        end: "top 50%",
-        scrub: 1, // Transición suave atada al scroll
-        invalidateOnRefresh: true,
-      },
+      scrollTrigger: { trigger: ".services-section", start: "top 75%", end: "top 50%", scrub: 1, invalidateOnRefresh: true },
     });
 
-    // 1. Preparación para Loop Infinito (Solo en Desktop, no en móvil/slider)
     if (window.innerWidth >= 992) {
-      const rows = document.querySelectorAll(".divergent-grid__row");
-      rows.forEach((row) => {
-        const content = row.innerHTML;
-        row.innerHTML = content + content + content;
+      document.querySelectorAll(".divergent-grid__row").forEach((row) => {
+        row.innerHTML = row.innerHTML + row.innerHTML + row.innerHTML;
       });
     }
-    /* ==========================================================================
-     SECCIÓN: CONTACT ANIMATION
-     Descripción: Revelación del formulario moderno.
-     ========================================================================== */
-    const tlContact = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".contact-section",
-        start: "top 85%",
-        end: "bottom 95%",
-        scrub: 1,
-      },
-    });
 
-    // 1. Fondo y Elementos entran juntos
+    // CONTACT
+    const tlContact = gsap.timeline({ scrollTrigger: { trigger: ".contact-section", start: "top 85%", end: "bottom 95%", scrub: 1 } });
     tlContact
-      .to("body", {
-        "--bg-opacity": 0,
-        duration: 1.5,
-        ease: "power2.inOut",
-      })
-      .from(
-        ".contact__info",
-        {
-          y: 40,
-          opacity: 0,
-          duration: 1,
-          ease: "power2.out",
-        },
-        0,
-      )
-      .from(
-        ".form-field",
-        {
-          y: 20,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power2.out",
-        },
-        0.5,
-      );
+      .to("body", { "--bg-opacity": 0, duration: 1.5, ease: "power2.inOut" })
+      .from(".contact__info", { y: 40, opacity: 0, duration: 1, ease: "power2.out" }, 0)
+      .from(".form-field", { y: 20, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power2.out" }, 0.5);
+
+    } // fi isHomePage
 
     // CRÍTICO: Recalcular posiciones
     ScrollTrigger.refresh();
@@ -1129,6 +862,44 @@ window.addEventListener("DOMContentLoaded", () => {
           end: "top 35%",
           scrub: 1,
         },
+      });
+    }
+
+    /* ─── CURSOR PERSONALITZAT: logo rotant sobre enllaços ─── */
+    // Només en desktop amb ratolí
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const cursor = document.createElement("div");
+      cursor.className = "custom-cursor";
+      cursor.innerHTML = '<div class="custom-cursor__inner"></div>';
+      document.body.appendChild(cursor);
+
+      document.body.classList.add("custom-cursor-active");
+
+      let mouseX = 0, mouseY = 0;
+      let rafId = null;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!rafId) {
+          rafId = requestAnimationFrame(() => {
+            cursor.style.left = mouseX + "px";
+            cursor.style.top = mouseY + "px";
+            rafId = null;
+          });
+        }
+      });
+
+      const interactive = 'a, button, [role="button"], input[type="submit"], input[type="button"]';
+
+      document.addEventListener("mouseover", (e) => {
+        const target = e.target.closest(interactive);
+        if (target) cursor.classList.add("is-visible");
+      });
+
+      document.addEventListener("mouseout", (e) => {
+        const target = e.target.closest(interactive);
+        if (!target) cursor.classList.remove("is-visible");
       });
     }
   }

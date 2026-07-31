@@ -1456,6 +1456,13 @@ body.menu-open .close-label {
   transform: scale(1.15);
 }
 
+/* Enllaç wrapper per a service cards */
+a.service-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .card-text {
   font-size: 1rem;
   line-height: 1.4;
@@ -4079,4 +4086,53 @@ body.page-projecte #main-footer.footer-section {
   .hero-line-p p {
     max-width: 100% !important; /* o el valor que vulguis */
   }
+}
+
+/* ==========================================================================
+   CURSOR PERSONALITZAT (logo rotant sobre enllaços)
+   ========================================================================== */
+
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.custom-cursor.is-visible {
+  opacity: 1;
+}
+
+.custom-cursor__inner {
+  width: 100%;
+  height: 100%;
+  background: url('../img/logo_blanc.png') center/contain no-repeat;
+  animation: cursor-spin 3s linear infinite;
+}
+
+@keyframes cursor-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Ocultar cursor nativo sobre elementos interactivos quan el custom està actiu */
+.custom-cursor-active a,
+.custom-cursor-active button,
+.custom-cursor-active [role="button"],
+.custom-cursor-active input[type="submit"],
+.custom-cursor-active input[type="button"] {
+  cursor: none !important;
+}
+
+/* Només en dispositius amb hover (no mòbil tàctil) */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor { display: block; }
+}
+
+@media (hover: none) {
+  .custom-cursor { display: none; }
 }

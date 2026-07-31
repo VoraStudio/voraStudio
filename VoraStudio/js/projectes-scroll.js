@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ─── Inici ─── */
   animateHeader();
 
-  var track = document.getElementById('projectes-track');
-  var cards = track ? track.querySelectorAll('.projecte-card-wrap') : [];
+  var track = document.getElementById("projectes-track");
+  var cards = track ? track.querySelectorAll(".projecte-card-wrap") : [];
 
   if (cards.length) {
     animateCards();
@@ -82,28 +82,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* Mòbil i Tablet: scroll natiu + fletxes (< 1024px) */
     mm.add("(max-width: 1023px)", function () {
-      var leftBtn = document.querySelector('.carousel-arrow--left');
-      var rightBtn = document.querySelector('.carousel-arrow--right');
+      var leftBtn = document.querySelector(".carousel-arrow--left");
+      var rightBtn = document.querySelector(".carousel-arrow--right");
       if (!leftBtn || !rightBtn) return;
 
       function scrollLeft() {
-        var card = track.querySelector('.projecte-card-wrap');
-        var width = card ? (card.offsetWidth + 16) : 276;
-        track.scrollBy({ left: -width, behavior: 'smooth' });
+        var card = track.querySelector(".projecte-card-wrap");
+        var width = card ? card.offsetWidth + 16 : 276;
+        track.scrollBy({ left: -width, behavior: "smooth" });
       }
 
       function scrollRight() {
-        var card = track.querySelector('.projecte-card-wrap');
-        var width = card ? (card.offsetWidth + 16) : 276;
-        track.scrollBy({ left: width, behavior: 'smooth' });
+        var card = track.querySelector(".projecte-card-wrap");
+        var width = card ? card.offsetWidth + 16 : 276;
+        track.scrollBy({ left: width, behavior: "smooth" });
       }
 
-      leftBtn.addEventListener('click', scrollLeft);
-      rightBtn.addEventListener('click', scrollRight);
+      leftBtn.addEventListener("click", scrollLeft);
+      rightBtn.addEventListener("click", scrollRight);
 
       return function () {
-        leftBtn.removeEventListener('click', scrollLeft);
-        rightBtn.removeEventListener('click', scrollRight);
+        leftBtn.removeEventListener("click", scrollLeft);
+        rightBtn.removeEventListener("click", scrollRight);
       };
     });
 
@@ -111,8 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function refreshScrollTriggerOnImagesLoad() {
-    if (typeof ScrollTrigger === 'undefined') return;
-    var images = document.querySelectorAll('img');
+    if (typeof ScrollTrigger === "undefined") return;
+    var images = document.querySelectorAll("img");
     var loadedCount = 0;
     var totalImages = images.length;
 
@@ -132,8 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (img.complete) {
         onImageLoad();
       } else {
-        img.addEventListener('load', onImageLoad);
-        img.addEventListener('error', onImageLoad);
+        img.addEventListener("load", onImageLoad);
+        img.addEventListener("error", onImageLoad);
       }
     });
 

@@ -102,11 +102,11 @@ $hasStrategy = $repte || $estrategia || $resultat;
           <li class="has-dropdown">
             <a href="../html/serveis.php">Serveis</a>
             <ul class="dropdown-menu">
-              <li><a href="../index.php#branding">Estratègia i Branding</a></li>
-              <li><a href="../index.php#web">Projectes Web</a></li>
-              <li><a href="../index.php#social">Social Media</a></li>
-              <li><a href="../index.php#disseny">Disseny Gràfic</a></li>
-              <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>
+              <li><a href="../html/servei.php?id=59">Estratègia i Branding</a></li>
+              <li><a href="../html/servei.php?id=60">Projectes Web</a></li>
+              <li><a href="../html/servei.php?id=61">Social Media</a></li>
+              <li><a href="../html/serveis.php">Disseny Gràfic</a></li>
+              <li><a href="../html/serveis.php">Màrqueting Digital</a></li>
               <li><a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer">voraData</a></li>
             </ul>
           </li>

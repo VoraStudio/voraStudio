@@ -12,6 +12,7 @@ $origin = getenv('SSR_ORIGIN') ?: 'https://vorastudio.cat';
 $cms = new CmsClient($cmsUrl, $origin);
 
 $allProjects = [];
+$allServices = [];
 
 try {
     $result = $cms->fetch('/api/public/web-principal/vorastudio-projects?locale=ca');
@@ -23,6 +24,37 @@ try {
     }
 } catch (Exception $e) {
     // CMS offline
+}
+
+try {
+    $result = $cms->fetch('/api/public/web-principal/serveis_vorastudio?locale=ca');
+    if ($result && isset($result['data'])) {
+        $allServices = $result['data'];
+        usort($allServices, function ($a, $b) {
+            return ($a['ordrecard'] ?? 999) - ($b['ordrecard'] ?? 999);
+        });
+    }
+} catch (Exception $e) {
+    // CMS offline
+}
+
+function serveiImgUrl($imgArr, $base) {
+    if (!$imgArr || !isset($imgArr[0]['url'])) return '../img/placeholder.webp';
+    $url = $imgArr[0]['url'];
+    if (str_starts_with($url, 'http')) return $url;
+    return rtrim($base, '/') . '/' . ltrim($url, '/');
+}
+
+function slugify($text) {
+    $text = mb_strtolower($text, 'UTF-8');
+    $text = str_replace(
+        ['à','á','â','ã','ä','ç','è','é','ê','ë','ì','í','î','ï','ñ','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ'],
+        ['a','a','a','a','a','c','e','e','e','e','i','i','i','i','n','o','o','o','o','o','u','u','u','u','y','y'],
+        $text
+    );
+    $text = preg_replace('/[^a-z0-9-]/', '-', $text);
+    $text = preg_replace('/-+/', '-', $text);
+    return trim($text, '-');
 }
 
 function imgUrl($path, $base) {
@@ -85,11 +117,11 @@ function imgUrl($path, $base) {
           <li class="has-dropdown">
             <a href="#">Serveis</a>
             <ul class="dropdown-menu">
-              <li><a href="../index.php#branding">Estratègia i Branding</a></li>
-              <li><a href="../index.php#web">Projectes Web</a></li>
-              <li><a href="../index.php#social">Social Media</a></li>
-              <li><a href="../index.php#disseny">Disseny Gràfic</a></li>
-              <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>
+              <li><a href="servei.php?id=59">Estratègia i Branding</a></li>
+              <li><a href="servei.php?id=60">Projectes Web</a></li>
+              <li><a href="servei.php?id=61">Social Media</a></li>
+              <li><a href="serveis.php">Disseny Gràfic</a></li>
+              <li><a href="serveis.php">Màrqueting Digital</a></li>
               <li><a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer">voraData</a></li>             
             </ul>
           </li>
@@ -118,11 +150,11 @@ function imgUrl($path, $base) {
           <li class="has-submenu">
             <a href="javascript:void(0)" class="parent-link">Serveis</a>
             <ul class="submenu">
-              <li><a href="../index.php#branding">Estratègia i Branding</a></li>
-              <li><a href="../index.php#web">Projectes Web</a></li>
-              <li><a href="../index.php#social">Social Media</a></li>
-              <li><a href="../index.php#disseny">Disseny Gràfic</a></li>
-              <li><a href="../index.php#marqueting">Màrqueting Digital</a></li>
+              <li><a href="servei.php?id=59">Estratègia i Branding</a></li>
+              <li><a href="servei.php?id=60">Projectes Web</a></li>
+              <li><a href="servei.php?id=61">Social Media</a></li>
+              <li><a href="serveis.php">Disseny Gràfic</a></li>
+              <li><a href="serveis.php">Màrqueting Digital</a></li>
               <li><a href="https://voradata.cat/" target="_blank" rel="noopener noreferrer">voraData</a></li>            
             </ul>
           </li>
@@ -136,117 +168,98 @@ function imgUrl($path, $base) {
     <!-- ----- MAIN CONTENT (WHITE BLOCK) ----- -->
     <main class="main-projectes">
       
-      <!-- GALLERY (ACCORDION) — 2 files de 3 -->
-      <section class="portfolio-grid">
-        <!-- Servei 01 -->
-        <article class="portfolio-card">
-          <img src="../img/para3.webp" alt="Estratègia i Branding" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">01</span>
-             <h2 class="portfolio-card__title">Estratègia i Branding</h2>
-             <p class="portfolio-card__text">Construïm marques amb propòsit i identitat pròpia.</p>
-             <a href="../index.php#branding" class="portfolio-card__btn">Saber-ne més</a>
-          </div>
-        </article>
-
-        <!-- Servei 02 -->
-        <article class="portfolio-card">
-          <img src="../img/aurexFinestra.webp" alt="Projectes Web" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-            <span class="portfolio-card__number">02</span>
-            <h2 class="portfolio-card__title">Projectes Web</h2>
-            <p class="portfolio-card__text">Landing pages i webs amb rendiment i disseny.</p>
-            <a href="../index.php#web" class="portfolio-card__btn">Saber-ne més</a>
-          </div>
-        </article>
-
-        <!-- Servei 03 -->
-        <article class="portfolio-card">
-          <img src="../img/cfood.webp" alt="Social Media" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">03</span>
-             <h2 class="portfolio-card__title">Social Media</h2>
-             <p class="portfolio-card__text">Gestionem la teva presència a xarxes socials.</p>
-             <a href="../index.php#social" class="portfolio-card__btn">Saber-ne més</a>
-          </div>
-        </article>
-      </section>
-
-      <section class="portfolio-grid2">
-        <!-- Servei 04 -->
-        <article class="portfolio-card">
-          <img src="../img/Targetes.webp" alt="Disseny Gràfic" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">04</span>
-             <h2 class="portfolio-card__title">Disseny Gràfic</h2>
-             <p class="portfolio-card__text">Creativitat visual per a la teva marca.</p>
-             <a href="../index.php#disseny" class="portfolio-card__btn">Saber-ne més</a>
-          </div>
-        </article>
-
-        <!-- Servei 05 -->
-        <article class="portfolio-card">
-          <img src="../img/wiar_pic.webp" alt="Màrqueting Digital" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">05</span>
-             <h2 class="portfolio-card__title">Màrqueting Digital</h2>
-             <p class="portfolio-card__text">Campanyes i estratègia digital complerta.</p>
-             <a href="../index.php#marqueting" class="portfolio-card__btn">Saber-ne més</a>
-          </div>
-        </article>
-
-        <!-- Servei 06 -->
-        <article class="portfolio-card">
-          <img src="../img/spica_web.jpg" alt="voraData" class="portfolio-card__img" />
-          <div class="portfolio-card__overlay">
-             <span class="portfolio-card__number">06</span>
-             <h2 class="portfolio-card__title">voraData</h2>
-             <p class="portfolio-card__text">Dades al servei del teu negoci.</p>
-             <a href="https://voradata.cat/" class="portfolio-card__btn" target="_blank">Saber-ne més</a>
-          </div>
-        </article>
-      </section>
-
-      <!-- ═══════════ CARRUSEL CMS (idèntic al de projectes.php) ═══════════ -->
-      <section class="projectes-scroll" id="projectes-scroll">
-        <button class="carousel-arrow carousel-arrow--left" aria-label="Anterior">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="projectes-scroll__track" id="projectes-track">
-          <?php if ($allProjects): ?>
-            <?php foreach ($allProjects as $p):
-              $title = $p['titol'] ?? 'Projecte';
-              $slug  = $p['slug_del_projecte'] ?? $p['project_slug'] ?? '';
-              $packRaw = $p['packs'] ?? $p['pack_type'] ?? 'Essencial';
-              $imgSrc = '';
-              if (!empty($p['imatge_principal'][0]['url'])) $imgSrc = imgUrl($p['imatge_principal'][0]['url'], $cmsUrl);
-              if (!$imgSrc && !empty($p['main_image'])) $imgSrc = is_string($p['main_image']) ? imgUrl($p['main_image'], $cmsUrl) : imgUrl($p['main_image']['url'] ?? '', $cmsUrl);
-              if (!$imgSrc && !empty($p['galeria'][0]['url'])) $imgSrc = imgUrl($p['galeria'][0]['url'], $cmsUrl);
-            ?>
-            <div class="projecte-card-wrap">
-              <div class="projecte-card__info">
-                <h3 class="projecte-card__title"><?= htmlspecialchars($title) ?></h3>
-                <p class="projecte-card__subtitle"><?= htmlspecialchars($packRaw) ?></p>
-              </div>
-              <a href="../projectes/projecte.php?project=<?= urlencode($slug) ?>" class="projecte-card" data-project="<?= htmlspecialchars($slug) ?>">
-                <?php if ($imgSrc): ?>
-                  <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($title) ?>" loading="lazy" />
-                <?php endif; ?>
-              </a>
+      <!-- GALLERY (CMS) — 2 files de 3 -->
+      <?php if ($allServices): ?>
+        <?php
+          $chunks = array_chunk($allServices, 3);
+          $chunkIndex = 0;
+        ?>
+        <?php foreach ($chunks as $chunk): $chunkIndex++; ?>
+        <section class="portfolio-grid<?= $chunkIndex > 1 ? '2' : '' ?>">
+          <?php foreach ($chunk as $s):
+            $sId = $s['id'] ?? 0;
+            $sNum = $s['ordrecard'] ?? $chunkIndex;
+            $sTitol = htmlspecialchars($s['titolcard'] ?? '');
+            $sDesc = htmlspecialchars($s['descripciocard'] ?? '');
+            $sImg = serveiImgUrl($s['imatgecard'] ?? null, $cmsUrl);
+            $isVoraData = stripos($sTitol, 'voradata') !== false;
+            $sLink = $isVoraData ? 'https://voradata.cat/' : 'servei.php?id=' . $sId;
+            $sTarget = $isVoraData ? ' target="_blank"' : '';
+            $sLabel = $isVoraData ? htmlspecialchars($s['titolcard'] ?? 'voraData') : htmlspecialchars($s['titolcard'] ?? '');
+          ?>
+          <article class="portfolio-card">
+            <img src="<?= $sImg ?>" alt="<?= $sTitol ?>" class="portfolio-card__img" loading="lazy" />
+            <div class="portfolio-card__overlay">
+               <span class="portfolio-card__number"><?= str_pad($sNum, 2, '0', STR_PAD_LEFT) ?></span>
+               <h2 class="portfolio-card__title"><?= $sTitol ?></h2>
+               <p class="portfolio-card__text"><?= $sDesc ?></p>
+               <a href="<?= $sLink ?>" class="portfolio-card__btn"<?= $sTarget ?>>Saber-ne més</a>
             </div>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <div class="carousel-spinner" id="carousel-spinner">
-              <img src="../img/icone nou.png" alt="" class="carousel-spinner__logo" />
-              <p class="carousel-spinner__text">No s'han pogut carregar els projectes</p>
+          </article>
+          <?php endforeach; ?>
+        </section>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <!-- Fallback estàtic si el CMS no respon -->
+        <section class="portfolio-grid">
+          <article class="portfolio-card">
+            <img src="../img/para3.webp" alt="Estratègia i Branding" class="portfolio-card__img" />
+            <div class="portfolio-card__overlay">
+               <span class="portfolio-card__number">01</span>
+               <h2 class="portfolio-card__title">Estratègia i Branding</h2>
+               <p class="portfolio-card__text">Construïm marques amb propòsit i identitat pròpia.</p>
+               <a href="servei.php?id=59" class="portfolio-card__btn">Saber-ne més</a>
             </div>
-          <?php endif; ?>
-        </div>
-        <button class="carousel-arrow carousel-arrow--right" aria-label="Següent">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-        <h2 class="projectes-scroll__title">Projectes</h2>
-      </section>
+          </article>
+          <article class="portfolio-card">
+            <img src="../img/aurexFinestra.webp" alt="Projectes Web" class="portfolio-card__img" />
+            <div class="portfolio-card__overlay">
+              <span class="portfolio-card__number">02</span>
+              <h2 class="portfolio-card__title">Projectes Web</h2>
+              <p class="portfolio-card__text">Landing pages i webs amb rendiment i disseny.</p>
+              <a href="servei.php?id=60" class="portfolio-card__btn">Saber-ne més</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <img src="../img/cfood.webp" alt="Social Media" class="portfolio-card__img" />
+            <div class="portfolio-card__overlay">
+               <span class="portfolio-card__number">03</span>
+               <h2 class="portfolio-card__title">Social Media</h2>
+               <p class="portfolio-card__text">Gestionem la teva presència a xarxes socials.</p>
+               <a href="servei.php?id=61" class="portfolio-card__btn">Saber-ne més</a>
+            </div>
+          </article>
+        </section>
+        <section class="portfolio-grid2">
+          <article class="portfolio-card">
+            <img src="../img/Targetes.webp" alt="Disseny Gràfic" class="portfolio-card__img" />
+            <div class="portfolio-card__overlay">
+               <span class="portfolio-card__number">04</span>
+               <h2 class="portfolio-card__title">Disseny Gràfic</h2>
+               <p class="portfolio-card__text">Creativitat visual per a la teva marca.</p>
+               <a href="serveis.php" class="portfolio-card__btn">Saber-ne més</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <img src="../img/wiar_pic.webp" alt="Màrqueting Digital" class="portfolio-card__img" />
+            <div class="portfolio-card__overlay">
+               <span class="portfolio-card__number">05</span>
+               <h2 class="portfolio-card__title">Màrqueting Digital</h2>
+               <p class="portfolio-card__text">Campanyes i estratègia digital complerta.</p>
+               <a href="serveis.php" class="portfolio-card__btn">Saber-ne més</a>
+            </div>
+          </article>
+          <article class="portfolio-card">
+            <img src="../img/spica_web.jpg" alt="voraData" class="portfolio-card__img" />
+            <div class="portfolio-card__overlay">
+               <span class="portfolio-card__number">06</span>
+               <h2 class="portfolio-card__title">voraData</h2>
+               <p class="portfolio-card__text">Dades al servei del teu negoci.</p>
+               <a href="https://voradata.cat/" class="portfolio-card__btn" target="_blank">Saber-ne més</a>
+            </div>
+          </article>
+        </section>
+      <?php endif; ?>
 
       <!-- Toast Container -->
       <div id="toast-container" class="toast-hidden"></div>
@@ -369,13 +382,5 @@ function imgUrl($path, $base) {
 
     <script src="../js/script.js"></script>
     <script src="../js/projectes-scroll.js"></script>
-    <script>
-    if (typeof Lenis !== 'undefined') {
-      var lenis = new Lenis();
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    }
-    </script>
   </body>
 </html>
